@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="13.778167mm"
+   height="14.016539mm"
+   viewBox="0 0 13.778167 14.016538"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="logo_formcreator2.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="-85.178052"
+     inkscape:cy="69.015478"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-midpoints="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.176061,-58.143869)">
+    <rect
+       y="62.804504"
+       x="53.558659"
+       height="8.8796988"
+       width="8.8796988"
+       id="rect924"
+       style="opacity:1;fill:#b5a397;fill-opacity:1;fill-rule:nonzero;stroke:#30231d;stroke-width:0.95240867;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <g
+       transform="matrix(-0.22225664,-0.12831993,-0.12831993,0.22225664,57.296335,34.330712)"
+       id="g928"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:47.78783417px;line-height:125%;font-family:Tahoma;-inkscape-font-specification:Tahoma;letter-spacing:0px;word-spacing:0px;fill:#30231d;fill-opacity:1;stroke:none;stroke-width:3.82302666px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       aria-label="L">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path926"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Tahoma;-inkscape-font-specification:'Tahoma Bold';fill:#30231d;fill-opacity:1;stroke-width:4.02878428px"
+         d="m -43.228541,122.56946 -29.827908,-1.54302 -2.217286,-50.326627 12.069245,-0.04833 -3.342939,43.467547 23.483921,-1.28255 z" />
+    </g>
+  </g>
+</svg>
