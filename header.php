@@ -1,6 +1,9 @@
 <?php
 session_start();
+//--interdire IE
+if(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true || strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') == true){header( 'Location: ie.php' ) ;exit(); }
 
+//--verifie id de session
 if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik'){
 	session_start();
 	session_unset();
