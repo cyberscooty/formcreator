@@ -1,44 +1,47 @@
 /*=========General=============
 brun foncé=#30231d
-brun moyen=#6a5750
+>>brun moyen=#6a5750
 brun clair=#b5a397
 presque blanc=#f6f1ed
 
 
 
-*** Primary color: vert pomme
-
-   shade 0 = #A0B501 = rgb(160,181,  1) = rgba(160,181,  1,1) = rgb0(0.627,0.71,0.004)
-   shade 1 = #D9ED42 = rgb(217,237, 66) = rgba(217,237, 66,1) = rgb0(0.851,0.929,0.259)
-   shade 2 = #C8E10D = rgb(200,225, 13) = rgba(200,225, 13,1) = rgb0(0.784,0.882,0.051)
-   shade 3 = #829300 = rgb(130,147,  0) = rgba(130,147,  0,1) = rgb0(0.51,0.576,0)
-   shade 4 = #5D6900 = rgb( 93,105,  0) = rgba( 93,105,  0,1) = rgb0(0.365,0.412,0)
-
-*** Secondary color (1): vert normal
-
-   shade 0 = #5BA801 = rgb( 91,168,  1) = rgba( 91,168,  1,1) = rgb0(0.357,0.659,0.004)
-   shade 1 = #92DD3D = rgb(146,221, 61) = rgba(146,221, 61,1) = rgb0(0.573,0.867,0.239)
-   shade 2 = #76D10C = rgb(118,209, 12) = rgba(118,209, 12,1) = rgb0(0.463,0.82,0.047)
-   shade 3 = #498900 = rgb( 73,137,  0) = rgba( 73,137,  0,1) = rgb0(0.286,0.537,0)
-   shade 4 = #346200 = rgb( 52, 98,  0) = rgba( 52, 98,  0,1) = rgb0(0.204,0.384,0)
-
-*** Secondary color (2): rose foncé
-
-   shade 0 = #A0013F = rgb(160,  1, 63) = rgba(160,  1, 63,1) = rgb0(0.627,0.004,0.247)
-   shade 1 = #D23A75 = rgb(210, 58,117) = rgba(210, 58,117,1) = rgb0(0.824,0.227,0.459)
-   shade 2 = #C70C54 = rgb(199, 12, 84) = rgba(199, 12, 84,1) = rgb0(0.78,0.047,0.329)
-   shade 3 = #820032 = rgb(130,  0, 50) = rgba(130,  0, 50,1) = rgb0(0.51,0,0.196)
-   shade 4 = #5D0024 = rgb( 93,  0, 36) = rgba( 93,  0, 36,1) = rgb0(0.365,0,0.141)
-
-*** Complement color: violet
-
-   shade 0 = #68037A = rgb(104,  3,122) = rgba(104,  3,122,1) = rgb0(0.408,0.012,0.478)
-   shade 1 = #8F2FA0 = rgb(143, 47,160) = rgba(143, 47,160,1) = rgb0(0.561,0.184,0.627)
-   shade 2 = #830C97 = rgb(131, 12,151) = rgba(131, 12,151,1) = rgb0(0.514,0.047,0.592)
-   shade 3 = #540263 = rgb( 84,  2, 99) = rgba( 84,  2, 99,1) = rgb0(0.329,0.008,0.388)
-   shade 4 = #3C0147 = rgb( 60,  1, 71) = rgba( 60,  1, 71,1) = rgb0(0.235,0.004,0.278)
+Palette URL: http://paletton.com/#uid=7220u0ktPqujHx8oRtYvPlyE5gu
 
 
+*** Primary color:
+
+>>   shade 0 = #B7CE0E = rgb(183,206, 14) = rgba(183,206, 14,1) = rgb0(0.718,0.808,0.055)
+   shade 1 = #E7F960 = rgb(231,249, 96) = rgba(231,249, 96,1) = rgb0(0.906,0.976,0.376)
+   shade 2 = #D4E934 = rgb(212,233, 52) = rgba(212,233, 52,1) = rgb0(0.831,0.914,0.204)
+   shade 3 = #94A801 = rgb(148,168,  1) = rgba(148,168,  1,1) = rgb0(0.58,0.659,0.004)
+   shade 4 = #718000 = rgb(113,128,  0) = rgba(113,128,  0,1) = rgb0(0.443,0.502,0)
+
+*** Secondary color (1):
+
+   shade 0 = #6DBF0D = rgb(109,191, 13) = rgba(109,191, 13,1) = rgb0(0.427,0.749,0.051)
+   shade 1 = #A6E859 = rgb(166,232, 89) = rgba(166,232, 89,1) = rgb0(0.651,0.91,0.349)
+   shade 2 = #8BD930 = rgb(139,217, 48) = rgba(139,217, 48,1) = rgb0(0.545,0.851,0.188)
+   shade 3 = #549C01 = rgb( 84,156,  1) = rgba( 84,156,  1,1) = rgb0(0.329,0.612,0.004)
+   shade 4 = #407700 = rgb( 64,119,  0) = rgba( 64,119,  0,1) = rgb0(0.251,0.467,0)
+
+*** Secondary color (2):
+
+   shade 0 = #B60C4E = rgb(182, 12, 78) = rgba(182, 12, 78,1) = rgb0(0.714,0.047,0.306)
+   shade 1 = #DE558A = rgb(222, 85,138) = rgba(222, 85,138,1) = rgb0(0.871,0.333,0.541)
+   shade 2 = #CE2E6C = rgb(206, 46,108) = rgba(206, 46,108,1) = rgb0(0.808,0.18,0.424)
+   shade 3 = #94013A = rgb(148,  1, 58) = rgba(148,  1, 58,1) = rgb0(0.58,0.004,0.227)
+   shade 4 = #71002C = rgb(113,  0, 44) = rgba(113,  0, 44,1) = rgb0(0.443,0,0.173)
+
+*** Complement color:
+
+   shade 0 = #780C8B = rgb(120, 12,139) = rgba(120, 12,139,1) = rgb0(0.471,0.047,0.545)
+   shade 1 = #9B44AB = rgb(155, 68,171) = rgba(155, 68,171,1) = rgb0(0.608,0.267,0.671)
+   shade 2 = #8B269D = rgb(139, 38,157) = rgba(139, 38,157,1) = rgb0(0.545,0.149,0.616)
+   shade 3 = #600371 = rgb( 96,  3,113) = rgba( 96,  3,113,1) = rgb0(0.376,0.012,0.443)
+   shade 4 = #4A0156 = rgb( 74,  1, 86) = rgba( 74,  1, 86,1) = rgb0(0.29,0.004,0.337)
+
+http://paletton.com/#uid=7220u0kvPngnauwu5sTCFiULZdx
 
 
 
@@ -51,8 +54,8 @@ presque blanc=#f6f1ed
 * {font-family: 'Open Sans', sans-serif;}
 a{text-decoration:none;color:black;}
 form{padding:0;margin:0;}
-#main{padding:2vw;}
-body{background:#f6f1ed;}
+#main{background: #fff;margin: 0 .5em;padding: 1em;border-radius: 3px}
+body{background:#b7ce0e;}
 
 .login_secondaire:hover,.bouton:hover{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
@@ -62,17 +65,17 @@ body{background:#f6f1ed;}
 
 
 /*--login*/
-.login {width: 30em;background: #b5a397;position: fixed;top: 20vh;right: 50%;transform: translatex(50%);padding: 2em;border-radius: 3px;border: none;text-align: center;}
+.login {width: 30em;background: #fff;position: fixed;top: 20vh;right: 50%;transform: translatex(50%);padding: 2em;border-radius: 3px;border: none;text-align: center;}
 .fake_submit {position: absolute;top: 0;left: 0;background: none;border: none;font-size: 0;color: transparent;}
-.titre_box {font-size: 1.5em;font-weight: bold;color: white;}
+.titre_box {font-size: 1.5em;font-weight: bold;color: #6a5750;}
 .erreurlogin {color: #d20000;font-weight: bold;}
-.input_text {width: 100%;background: #f6f1ed;border-radius: 3px;border: none;line-height: 2em;padding: 0 1em;text-align: center;margin: 0 0 1em 0;}
+.input_text {width: 100%;background: #f6ffb8;border-radius: 3px;border: none;line-height: 2em;padding: 0 1em;text-align: center;margin: 0 0 1em 0;}
 .login_secondaire {background: none;border: none;width: 45%;color: #30231d;font-size: .8em;}
 .login_secondaire:hover {text-decoration:underline;}
 
 /*--header*/
-#titre{background:#6a5750;}
+#titre{background:#b7ce0e;}
 .logo {display: inline-block;margin: .5em;height: 2em;vertical-align: middle;}
-#titre h1{display: inline-block;margin: 0;line-height: 2em;vertical-align: middle;padding: 0;font-size: 1.5em;color: #f6f1ed;}
+#titre h1{display: inline-block;margin: 0;line-height: 2em;vertical-align: middle;padding: 0;font-size: 1.5em;color: #30231d;}
 .infos_header {float: right;margin: .5em;line-height: 2em;}
-.header_info {font-weight: bold;color: #b5a397;}
+.header_info {font-weight: bold;color: #6a5750;}

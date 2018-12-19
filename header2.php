@@ -24,5 +24,3 @@ $titre_site="FormCreator";
 <div id="titre">
  <a href="index.php" title="Retour page principale"><img class="logo" src="img/logo_formcreator2.svg" /><h1><?php echo $titre_site;?></h1></a>
 </div>
-
-<div id="main">
