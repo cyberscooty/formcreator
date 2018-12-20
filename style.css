@@ -54,7 +54,7 @@ http://paletton.com/#uid=7220u0kvPngnauwu5sTCFiULZdx
 * {font-family: 'Open Sans', sans-serif;}
 a{text-decoration:none;color:black;}
 form{padding:0;margin:0;}
-#main{background: #fff;margin: 0 .5em;padding: 1em;border-radius: 3px}
+#main{background: #fff;margin: 0 .5em;padding: 1em;border-radius: 3px;min-height: calc(100vh - 6em);}
 body{background:#b7ce0e;}
 
 .login_secondaire:hover,.bouton:hover{cursor: pointer;}

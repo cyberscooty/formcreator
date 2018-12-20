@@ -1,7 +1,7 @@
 <?php
 include 'header2.php';
 $create_account=0;
-
+$mdpoublie=0;
 //--check login
 if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !isset($_POST['pasdecompte'])) {
 	
@@ -34,12 +34,13 @@ if (isset($_POST['pasdecompte'])) {
 
 //--mdp oublié
 if (isset($_POST['mdpoublie'])) {
-	echo 'mdp oublié';
+	$mdpoublie=1;
+	
 }
 
 
 //--creation compte
-if (isset($_POST['ca_login'])) {
+if (isset($_POST['ca_ok'])) {
 	$create_account=1;
 	$login=mysql_real_escape_string(trim($_POST['ca_login']));
 	$prenom=mysql_real_escape_string(trim($_POST['ca_prenom']));
@@ -58,14 +59,14 @@ if (isset($_POST['ca_login'])) {
 	
 	if($ca_erreur==''){	//enregistre new user
 			include 'connect.php';
-			$result = $db->query("SELECT * FROM users WHERE login='$login'");
+			$result = $db->query("SELECT * FROM users WHERE email='$email' OR login='$login'");
 			$row_count = $result->rowCount();
-			if ($row_count>0){$ca_erreur='Ce login existe déjà';}
+			if ($row_count>0){$ca_erreur='Un utilisateur avec cet email ou ce login existe déjà';}
 			else {
 				$passhash=md5($mdp);
 				$now = date("Y-m-d H:i:s");
 				$result = $db->exec("INSERT INTO users(login,passhash,prenom,nom,email,datecreated,datemodif,actif)
-						VALUES('$login', '$passhash','$prenom','$nom','$email','$now','$now',1)");
+						VALUES('$login','$passhash','$prenom','$nom','$email','$now','$now',1)");
 				//connecte new user
 				$_SESSION['login'] = $login;
 				$_SESSION['prenom'] = $prenom;
@@ -73,22 +74,36 @@ if (isset($_POST['ca_login'])) {
 				$_SESSION['email'] = $email;
 				$_SESSION['sessionid']='kjFK_69kA5+k47gv-DG&ik';
 				header('Location: index.php'); exit();
-				
-			}
+				}
 		}
-	}
-	
-	
-	
+}
 
 
-
+//--envoi mail reset mdp
+if (isset($_POST['mo_ok'])) {
+	$mdpoublie=1;
+	$login=mysql_real_escape_string(trim($_POST['mo_login']));
+	include 'connect.php';
+	$result = $db->query("SELECT * FROM users WHERE login='$login'");
+	$row_count = $result->rowCount();
+	if ($row_count==0){$mo_erreur='Ce nom d\'utilisateur n\'existe pas';}
+	else {while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
+	$msg = "First line of text\nSecond line of text";
+	$msg = wordwrap($msg,70);
+	$subject=utf8_decode('[FormCreator] Réinitialisation de votre mot de passe');
+	$headers="From: FormCreator@noreply.local \n"; 
+	$headers.= "MIME-version: 1.0\n"; 
+	$headers.= "Content-type: text/html; charset= UTF-8\n"; 
+	mail($to,$subject,$msg,$headers);
+	$mdpoublie=0;}
+	
+}
 
 
 
 
 //--formulaire de connexion
-if ($create_account!=1){
+if ($create_account!=1 AND $mdpoublie!=1){
 echo '<div class="login"><form action="login.php" method="post">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Ok">';
 echo '<div class="titre_box margin_bottom">Se connecter à FormCreator</div>';
@@ -118,11 +133,21 @@ echo '<input class="input_text" type="password" name="ca_mdpconfirm" placeholder
 echo '<div class="margin_bottom_double"></div>';
 echo '<input class="bouton bt_green bt_plus" type="submit" name="ca_ok" value="Ok">';
 echo '<a href="login.php" class="bouton bt_green">Annuler</a>';
-
 echo '</form></div>';}
 
 
-
+//--mot de passe oublié
+if ($mdpoublie==1){
+echo '<div class="login"><form action="login.php" method="post">';
+echo '<input class="fake_submit" type="submit" name="mo_ok" value="Ok">';
+echo '<div class="titre_box margin_bottom">Mot de passe oublié</div>';
+if (isset($mo_erreur)) echo '<div class="erreurlogin margin_bottom">'.$mo_erreur.'</div>';
+echo '<input class="input_text" type="text" name="mo_login" placeholder="votre login" required  value="'.$login.'">';
+echo '<div class="tips">Un email sera envoyé sur l\'adresse email enregistrée dans votre profil</div>';
+echo '<div class="margin_bottom_double"></div>';
+echo '<input class="bouton bt_green bt_plus" type="submit" name="mo_ok" value="Ok">';
+echo '<a href="login.php" class="bouton bt_green">Annuler</a>';
+echo '</form></div>';}
 
 
 
