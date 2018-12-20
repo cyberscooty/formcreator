@@ -1,4 +1,4 @@
 <?php
-$db = new PDO('mysql:host=localhost;dbname=formulaires','root','Cyberscooty*');
+$db = new PDO('mysql:host=localhost;dbname=formcreator','root','lgcf');
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 include 'header2.php';
+$create_account=0;
 
 //--check login
 if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !isset($_POST['pasdecompte'])) {
@@ -27,7 +28,8 @@ if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !
 
 //--pas encore de compte
 if (isset($_POST['pasdecompte'])) {
-	echo 'pas encore de compte';
+	$create_account=1;
+	
 }
 
 //--mdp oublié
@@ -36,6 +38,48 @@ if (isset($_POST['mdpoublie'])) {
 }
 
 
+//--creation compte
+if (isset($_POST['ca_login'])) {
+	$create_account=1;
+	$login=mysql_real_escape_string(trim($_POST['ca_login']));
+	$prenom=mysql_real_escape_string(trim($_POST['ca_prenom']));
+	$nom=mysql_real_escape_string(trim($_POST['ca_nom']));
+	$email=mysql_real_escape_string(trim($_POST['ca_email']));
+	$mdp=mysql_real_escape_string(trim($_POST['ca_mdp']));
+	$confirm=mysql_real_escape_string(trim($_POST['ca_mdpconfirm']));
+	
+	$ca_erreur='';
+	if(strpos($email,'@')==false){$ca_erreur='L\'adresse email ne semble pas valide';}
+	if(strpos($email,'.')==false){$ca_erreur='L\'adresse email ne semble pas valide';}
+	if($mdp!=$confirm){$ca_erreur='Les mots de passes sont différents';}
+	if (strlen($mdp)<8){$ca_erreur='Le mot de passe est trop court (min 8 caractères)';}
+	if($mdp!=$confirm){$ca_erreur='Les mots de passes sont différents';}
+	
+	
+	if($ca_erreur==''){	//enregistre new user
+			include 'connect.php';
+			$result = $db->query("SELECT * FROM users WHERE login='$login'");
+			$row_count = $result->rowCount();
+			if ($row_count>0){$ca_erreur='Ce login existe déjà';}
+			else {
+				$passhash=md5($mdp);
+				$now = date("Y-m-d H:i:s");
+				$result = $db->exec("INSERT INTO users(login,passhash,prenom,nom,email,datecreated,datemodif,actif)
+						VALUES('$login', '$passhash','$prenom','$nom','$email','$now','$now',1)");
+				//connecte new user
+				$_SESSION['login'] = $login;
+				$_SESSION['prenom'] = $prenom;
+				$_SESSION['nom'] = $nom;
+				$_SESSION['email'] = $email;
+				$_SESSION['sessionid']='kjFK_69kA5+k47gv-DG&ik';
+				header('Location: index.php'); exit();
+				
+			}
+		}
+	}
+	
+	
+	
 
 
 
@@ -44,6 +88,7 @@ if (isset($_POST['mdpoublie'])) {
 
 
 //--formulaire de connexion
+if ($create_account!=1){
 echo '<div class="login"><form action="login.php" method="post">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Ok">';
 echo '<div class="titre_box margin_bottom">Se connecter à FormCreator</div>';
@@ -53,14 +98,28 @@ echo '<input class="input_text" type="password" name="mdp" placeholder="mot de p
 echo '<input class="login_secondaire margin_bottom" type="submit" name="mdpoublie" value="Mot de passe oublié">';
 echo '<input class="login_secondaire margin_bottom" type="submit" name="pasdecompte" value="Pas encore de compte?">';
 echo '<input class="bouton bt_green bt_seul" type="submit" name="ok" value="Ok">';
+echo '</form></div>';}
 
 
+//--creation nouveau compte
+if ($create_account==1){
+echo '<div class="login"><form action="login.php" method="post">';
+echo '<input class="fake_submit" type="submit" name="ca_ok" value="Ok">';
+echo '<div class="titre_box margin_bottom">Création d\'un profil FormCreator</div>';
+if (isset($ca_erreur)) echo '<div class="erreurlogin margin_bottom">'.$ca_erreur.'</div>';
+echo '<input class="input_text" type="text" name="ca_login" placeholder="Login de connexion" required value="'.$login.'">';
+echo '<input class="input_text" type="text" name="ca_prenom" placeholder="Prénom" required value="'.$prenom.'">';
+echo '<input class="input_text" type="text" name="ca_nom" placeholder="Nom" required value="'.$nom.'">';
+echo '<input class="input_text" type="text" name="ca_email" placeholder="Adresse email" required  value="'.$email.'">';
+echo '<div class="tips">L\'adresse email ne sera utilisée que pour renvoyer un mot de passe oublié</div>';
+echo '<div class="margin_bottom_double"></div>';
+echo '<input class="input_text" type="password" name="ca_mdp" placeholder="mot de passe" required>';
+echo '<input class="input_text" type="password" name="ca_mdpconfirm" placeholder="confirmation" required>';
+echo '<div class="margin_bottom_double"></div>';
+echo '<input class="bouton bt_green bt_plus" type="submit" name="ca_ok" value="Ok">';
+echo '<a href="login.php" class="bouton bt_green">Annuler</a>';
 
-
-echo '</form></div>';
-
-
-
+echo '</form></div>';}
 
 
 

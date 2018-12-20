@@ -59,8 +59,10 @@ body{background:#b7ce0e;}
 
 .login_secondaire:hover,.bouton:hover{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
+.margin_bottom_double{margin-bottom:2em;}
 .bt_seul {display: block;text-align: center;margin: 0 auto;}
-.bouton {border:none;border-radius: 3px;padding: .5em 2em;font-weight: bold;}
+.bt_plus{margin-right:1em;}
+.bouton {border: none;border-radius: 3px;padding: .5em 2em;font-weight: bold;line-height: 1em;height: 2.4em;vertical-align: middle;}
 .bt_green {background: #6a5750;color: white;}
 
 
@@ -69,9 +71,11 @@ body{background:#b7ce0e;}
 .fake_submit {position: absolute;top: 0;left: 0;background: none;border: none;font-size: 0;color: transparent;}
 .titre_box {font-size: 1.5em;font-weight: bold;color: #6a5750;}
 .erreurlogin {color: #d20000;font-weight: bold;}
-.input_text {width: 100%;background: #f6ffb8;border-radius: 3px;border: none;line-height: 2em;padding: 0 1em;text-align: center;margin: 0 0 1em 0;}
+.input_text {width: 100%;background: #efefef;border-radius: 3px;border: none;line-height: 2em;padding: 0 1em;text-align: center;margin: 0 0 1em 0;}
 .login_secondaire {background: none;border: none;width: 45%;color: #30231d;font-size: .8em;}
 .login_secondaire:hover {text-decoration:underline;}
+.separator {margin-bottom: 1em;border-color: #fff;width: 80%;}
+.tips {font-size: .8em;color: grey;}
 
 /*--header*/
 #titre{background:#b7ce0e;}
