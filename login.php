@@ -99,7 +99,8 @@ if (isset($_POST['mo_ok'])) {
 		
 		
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
-	$msg = 'Cliquer ici : '.$lien;
+	$msg = '<p>Désolé d\'apprendre que vous avez perdu votre mot de passe pour FormCreator</p>
+	<p>Ne vous inquiétez pas! Vous pouvez utiliser le lien ci dessous pour le réinitialiser</p><a href="'.$lien.'">'.$lien.'</a><p>Ce lien expire dans 30 minutes</p><p>Merci,<br>FromCreator</p>';
 	$msg = wordwrap($msg,70);
 	$subject=utf8_decode('[FormCreator] Réinitialisation de votre mot de passe');
 	$headers="From: FormCreator@noreply.local \n"; 
@@ -112,10 +113,10 @@ if (isset($_POST['mo_ok'])) {
 
 
 //--demande new mdp
-if (isset($_GET['resetpass'])) {
+if (isset($_GET['resetmdp'])) {
 	//test si id correct
 	include 'connect.php';
-	$resetpass=mysql_real_escape_string(trim($_GET['resetpass']));
+	$resetpass=mysql_real_escape_string(trim($_GET['resetmdp']));
 	
 	$resetpass_time=substr($resetpass,-2).':'.substr($resetpass,2,2).':'.substr($resetpass,0,2);
 	$to_time = strtotime($resetpass_time);
@@ -130,7 +131,7 @@ if (isset($_GET['resetpass'])) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$userid=$row['id']; }
 		$asknewpass=1;
 	}
-	else {$erreur=array('message_rouge','Code de réinitialisation de mot de passe incorrect');}
+	else {$erreur=array('message_rouge','Code de réinitialisation de mot de passe incorrect ou périmé');}
 }}
 
 //--reset mdp
@@ -147,8 +148,9 @@ if (isset($_POST['cp_ok'])) {
 	if($cp_erreur==''){	//enregistre new user
 			$asknewpass='';
 			$mdp=md5($mdp);
+			$now = date("Y-m-d H:i:s");
 			include 'connect.php';
-			$affected_rows = $db->exec("UPDATE users SET passhash='$mdp',resetpass='' WHERE id='$userid'");
+			$affected_rows = $db->exec("UPDATE users SET passhash='$mdp',resetpass='',datemodif='$now' WHERE id='$userid'");
 			$erreur=array('message_vert','Mot de passe réinitialisé, vous pouvez vous connecter avec le nouveau mot de passe');
 			
 			
