@@ -87,7 +87,17 @@ if (isset($_POST['mo_ok'])) {
 	$result = $db->query("SELECT * FROM users WHERE login='$login'");
 	$row_count = $result->rowCount();
 	if ($row_count==0){$mo_erreur='Ce nom d\'utilisateur n\'existe pas';}
-	else {while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
+	else {
+		//------------unique id à enregistrer dans table users
+		$uniqueid=str_replace('.','',uniqid('p',TRUE));
+		$cette_page=strtolower(dirname($_SERVER['SERVER_PROTOCOL'])) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$lien=$cette_page.'?resetmdp='.$uniqueid;
+		//ajouter colone à table users
+		$affected_rows = $db->exec("UPDATE users SET resetpass='$$uniqueid' WHERE login='$login'");
+		
+		
+		
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
 	$msg = "First line of text\nSecond line of text";
 	$msg = wordwrap($msg,70);
 	$subject=utf8_decode('[FormCreator] Réinitialisation de votre mot de passe');
