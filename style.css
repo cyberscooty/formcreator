@@ -3,21 +3,19 @@ brun foncé=#30231d
 >>brun moyen=#6a5750
 brun clair=#b5a397
 presque blanc=#f6f1ed
+*/
 
 
+/*
+ Primary color:
 
-Palette URL: http://paletton.com/#uid=7220u0ktPqujHx8oRtYvPlyE5gu
-
-
-*** Primary color:
-
->>   shade 0 = #B7CE0E = rgb(183,206, 14) = rgba(183,206, 14,1) = rgb0(0.718,0.808,0.055)
+   shade 0 = #B7CE0E = rgb(183,206, 14) = rgba(183,206, 14,1) = rgb0(0.718,0.808,0.055)
    shade 1 = #E7F960 = rgb(231,249, 96) = rgba(231,249, 96,1) = rgb0(0.906,0.976,0.376)
    shade 2 = #D4E934 = rgb(212,233, 52) = rgba(212,233, 52,1) = rgb0(0.831,0.914,0.204)
    shade 3 = #94A801 = rgb(148,168,  1) = rgba(148,168,  1,1) = rgb0(0.58,0.659,0.004)
    shade 4 = #718000 = rgb(113,128,  0) = rgba(113,128,  0,1) = rgb0(0.443,0.502,0)
 
-*** Secondary color (1):
+ Secondary color (1):
 
    shade 0 = #6DBF0D = rgb(109,191, 13) = rgba(109,191, 13,1) = rgb0(0.427,0.749,0.051)
    shade 1 = #A6E859 = rgb(166,232, 89) = rgba(166,232, 89,1) = rgb0(0.651,0.91,0.349)
@@ -25,7 +23,7 @@ Palette URL: http://paletton.com/#uid=7220u0ktPqujHx8oRtYvPlyE5gu
    shade 3 = #549C01 = rgb( 84,156,  1) = rgba( 84,156,  1,1) = rgb0(0.329,0.612,0.004)
    shade 4 = #407700 = rgb( 64,119,  0) = rgba( 64,119,  0,1) = rgb0(0.251,0.467,0)
 
-*** Secondary color (2):
+ Secondary color (2):
 
    shade 0 = #B60C4E = rgb(182, 12, 78) = rgba(182, 12, 78,1) = rgb0(0.714,0.047,0.306)
    shade 1 = #DE558A = rgb(222, 85,138) = rgba(222, 85,138,1) = rgb0(0.871,0.333,0.541)
@@ -33,7 +31,7 @@ Palette URL: http://paletton.com/#uid=7220u0ktPqujHx8oRtYvPlyE5gu
    shade 3 = #94013A = rgb(148,  1, 58) = rgba(148,  1, 58,1) = rgb0(0.58,0.004,0.227)
    shade 4 = #71002C = rgb(113,  0, 44) = rgba(113,  0, 44,1) = rgb0(0.443,0,0.173)
 
-*** Complement color:
+ Complement color:
 
    shade 0 = #780C8B = rgb(120, 12,139) = rgba(120, 12,139,1) = rgb0(0.471,0.047,0.545)
    shade 1 = #9B44AB = rgb(155, 68,171) = rgba(155, 68,171,1) = rgb0(0.608,0.267,0.671)
@@ -41,15 +39,10 @@ Palette URL: http://paletton.com/#uid=7220u0ktPqujHx8oRtYvPlyE5gu
    shade 3 = #600371 = rgb( 96,  3,113) = rgba( 96,  3,113,1) = rgb0(0.376,0.012,0.443)
    shade 4 = #4A0156 = rgb( 74,  1, 86) = rgba( 74,  1, 86,1) = rgb0(0.29,0.004,0.337)
 
-http://paletton.com/#uid=7220u0kvPngnauwu5sTCFiULZdx
-
-
-
-
-
 
 
 */
+
 *:focus {outline: none;}
 * {font-family: 'Open Sans', sans-serif;}
 a{text-decoration:none;color:black;}

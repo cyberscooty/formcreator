@@ -57,7 +57,6 @@ if (isset($_POST['ca_ok'])) {
 	if (strlen($mdp)<8){$ca_erreur=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
 	if($mdp!=$confirm){$ca_erreur=array('message_rouge','Les mots de passes sont différents');}
 	
-	
 	if($ca_erreur==''){	//enregistre new user
 			include 'connect.php';
 			$result = $db->query("SELECT * FROM users WHERE email='$email' OR login='$login'");
@@ -93,11 +92,7 @@ if (isset($_POST['mo_ok'])) {
 		$uniqueid=date('si').str_replace('.','',uniqid('p',TRUE)).date('H');
 		$cette_page=strtolower(dirname($_SERVER['SERVER_PROTOCOL'])) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		$lien=$cette_page.'?resetmdp='.$uniqueid;
-		//ajouter colone à table users
 		$affected_rows = $db->exec("UPDATE users SET resetpass='$uniqueid' WHERE login='$login'");
-		
-		
-		
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
 	$msg = '<p>Désolé d\'apprendre que vous avez perdu votre mot de passe pour FormCreator</p>
 	<p>Ne vous inquiétez pas! Vous pouvez utiliser le lien ci dessous pour le réinitialiser</p><a href="'.$lien.'">'.$lien.'</a><p>Ce lien expire dans 30 minutes</p><p>Merci,<br>FromCreator</p>';
@@ -145,7 +140,7 @@ if (isset($_POST['cp_ok'])) {
 	if (strlen($mdp)<8){$cp_erreur=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
 	if($mdp!=$confirm){$cp_erreur=array('message_rouge','Les mots de passes sont différents');}
 	
-	if($cp_erreur==''){	//enregistre new user
+	if($cp_erreur==''){	
 			$asknewpass='';
 			$mdp=md5($mdp);
 			$now = date("Y-m-d H:i:s");
