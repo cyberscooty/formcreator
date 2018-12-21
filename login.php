@@ -2,6 +2,8 @@
 include 'header2.php';
 $create_account=0;
 $mdpoublie=0;
+$asknewpass=0;
+$erreur='';
 //--check login
 if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !isset($_POST['pasdecompte'])) {
 	
@@ -22,7 +24,7 @@ if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !
 			header('Location: index.php'); exit();
 		}		
 	}
-	else{$erreur='Compte non reconnu';}
+	else{$erreur=array('message_rouge','Compte non reconnu');}
 }
 
 
@@ -50,18 +52,17 @@ if (isset($_POST['ca_ok'])) {
 	$confirm=mysql_real_escape_string(trim($_POST['ca_mdpconfirm']));
 	
 	$ca_erreur='';
-	if(strpos($email,'@')==false){$ca_erreur='L\'adresse email ne semble pas valide';}
-	if(strpos($email,'.')==false){$ca_erreur='L\'adresse email ne semble pas valide';}
-	if($mdp!=$confirm){$ca_erreur='Les mots de passes sont différents';}
-	if (strlen($mdp)<8){$ca_erreur='Le mot de passe est trop court (min 8 caractères)';}
-	if($mdp!=$confirm){$ca_erreur='Les mots de passes sont différents';}
+	if(strpos($email,'@')==false){$ca_erreur=array('message_rouge','L\'adresse email ne semble pas valide');}
+	if(strpos($email,'.')==false){$ca_erreur=array('message_rouge','L\'adresse email ne semble pas valide');}
+	if (strlen($mdp)<8){$ca_erreur=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
+	if($mdp!=$confirm){$ca_erreur=array('message_rouge','Les mots de passes sont différents');}
 	
 	
 	if($ca_erreur==''){	//enregistre new user
 			include 'connect.php';
 			$result = $db->query("SELECT * FROM users WHERE email='$email' OR login='$login'");
 			$row_count = $result->rowCount();
-			if ($row_count>0){$ca_erreur='Un utilisateur avec cet email ou ce login existe déjà';}
+			if ($row_count>0){$ca_erreur=array('message_rouge','Un utilisateur avec cet email ou ce login existe déjà');}
 			else {
 				$passhash=md5($mdp);
 				$now = date("Y-m-d H:i:s");
@@ -86,19 +87,19 @@ if (isset($_POST['mo_ok'])) {
 	include 'connect.php';
 	$result = $db->query("SELECT * FROM users WHERE login='$login'");
 	$row_count = $result->rowCount();
-	if ($row_count==0){$mo_erreur='Ce nom d\'utilisateur n\'existe pas';}
+	if ($row_count==0){$mo_erreur=array('message_rouge','Ce nom d\'utilisateur n\'existe pas');}
 	else {
 		//------------unique id à enregistrer dans table users
-		$uniqueid=str_replace('.','',uniqid('p',TRUE));
+		$uniqueid=date('si').str_replace('.','',uniqid('p',TRUE)).date('H');
 		$cette_page=strtolower(dirname($_SERVER['SERVER_PROTOCOL'])) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		$lien=$cette_page.'?resetmdp='.$uniqueid;
 		//ajouter colone à table users
-		$affected_rows = $db->exec("UPDATE users SET resetpass='$$uniqueid' WHERE login='$login'");
+		$affected_rows = $db->exec("UPDATE users SET resetpass='$uniqueid' WHERE login='$login'");
 		
 		
 		
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$to=$row['email'];$prenom=$row['prenom'];$nom=$row['nom'];}
-	$msg = "First line of text\nSecond line of text";
+	$msg = 'Cliquer ici : '.$lien;
 	$msg = wordwrap($msg,70);
 	$subject=utf8_decode('[FormCreator] Réinitialisation de votre mot de passe');
 	$headers="From: FormCreator@noreply.local \n"; 
@@ -106,18 +107,61 @@ if (isset($_POST['mo_ok'])) {
 	$headers.= "Content-type: text/html; charset= UTF-8\n"; 
 	mail($to,$subject,$msg,$headers);
 	$mdpoublie=0;}
-	
+	$erreur=array('message_vert','Email envoyé, consultez votre boîte aux lettres');
 }
 
 
+//--demande new mdp
+if (isset($_GET['resetpass'])) {
+	//test si id correct
+	include 'connect.php';
+	$resetpass=mysql_real_escape_string(trim($_GET['resetpass']));
+	
+	$resetpass_time=substr($resetpass,-2).':'.substr($resetpass,2,2).':'.substr($resetpass,0,2);
+	$to_time = strtotime($resetpass_time);
+	$from_time = strtotime(date('H:i:s'));
+	$elapsedtime=round(abs($to_time - $from_time)/60);
+	
+	if ($elapsedtime>30){$erreur=array('message_rouge','Le code de réinitialisation est perimé');}
+	else{
+	$result = $db->query("SELECT * FROM users WHERE resetpass='$resetpass'");
+	$row_count = $result->rowCount();
+	if ($row_count==1){
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {$userid=$row['id']; }
+		$asknewpass=1;
+	}
+	else {$erreur=array('message_rouge','Code de réinitialisation de mot de passe incorrect');}
+}}
+
+//--reset mdp
+if (isset($_POST['cp_ok'])) {
+	$erreur='';
+	$asknewpass=1;
+	include 'connect.php';
+	$mdp=mysql_real_escape_string(trim($_POST['cp_mdp']));
+	$confirm=mysql_real_escape_string(trim($_POST['cp_mdpconfirm']));
+	$userid=$_POST['userid'];
+	if (strlen($mdp)<8){$cp_erreur=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
+	if($mdp!=$confirm){$cp_erreur=array('message_rouge','Les mots de passes sont différents');}
+	
+	if($cp_erreur==''){	//enregistre new user
+			$asknewpass='';
+			$mdp=md5($mdp);
+			include 'connect.php';
+			$affected_rows = $db->exec("UPDATE users SET passhash='$mdp',resetpass='' WHERE id='$userid'");
+			$erreur=array('message_vert','Mot de passe réinitialisé, vous pouvez vous connecter avec le nouveau mot de passe');
+			
+			
+		}
+}
 
 
 //--formulaire de connexion
-if ($create_account!=1 AND $mdpoublie!=1){
+if ($create_account!=1 AND $mdpoublie!=1 AND $asknewpass!=1){
 echo '<div class="login"><form action="login.php" method="post">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Ok">';
 echo '<div class="titre_box margin_bottom">Se connecter à FormCreator</div>';
-if (isset($erreur)) echo '<div class="erreurlogin margin_bottom">'.$erreur.'</div>';
+if (isset($erreur)) echo '<div class="erreurlogin margin_bottom '.$erreur[0].'">'.$erreur[1].'</div>';
 echo '<input class="input_text" type="text" name="login" placeholder="login">';
 echo '<input class="input_text" type="password" name="mdp" placeholder="mot de passe">';
 echo '<input class="login_secondaire margin_bottom" type="submit" name="mdpoublie" value="Mot de passe oublié">';
@@ -131,7 +175,7 @@ if ($create_account==1){
 echo '<div class="login"><form action="login.php" method="post">';
 echo '<input class="fake_submit" type="submit" name="ca_ok" value="Ok">';
 echo '<div class="titre_box margin_bottom">Création d\'un profil FormCreator</div>';
-if (isset($ca_erreur)) echo '<div class="erreurlogin margin_bottom">'.$ca_erreur.'</div>';
+if (isset($ca_erreur)) echo '<div class="erreurlogin margin_bottom '.$ca_erreur[0].'">'.$ca_erreur[1].'</div>';
 echo '<input class="input_text" type="text" name="ca_login" placeholder="Login de connexion" required value="'.$login.'">';
 echo '<input class="input_text" type="text" name="ca_prenom" placeholder="Prénom" required value="'.$prenom.'">';
 echo '<input class="input_text" type="text" name="ca_nom" placeholder="Nom" required value="'.$nom.'">';
@@ -151,7 +195,7 @@ if ($mdpoublie==1){
 echo '<div class="login"><form action="login.php" method="post">';
 echo '<input class="fake_submit" type="submit" name="mo_ok" value="Ok">';
 echo '<div class="titre_box margin_bottom">Mot de passe oublié</div>';
-if (isset($mo_erreur)) echo '<div class="erreurlogin margin_bottom">'.$mo_erreur.'</div>';
+if (isset($mo_erreur)) echo '<div class="erreurlogin margin_bottom '.$mo_erreur[0].'">'.$mo_erreur[1].'</div>';
 echo '<input class="input_text" type="text" name="mo_login" placeholder="votre login" required  value="'.$login.'">';
 echo '<div class="tips">Un email sera envoyé sur l\'adresse email enregistrée dans votre profil</div>';
 echo '<div class="margin_bottom_double"></div>';
@@ -160,6 +204,19 @@ echo '<a href="login.php" class="bouton bt_green">Annuler</a>';
 echo '</form></div>';}
 
 
+//--demande nouveau mot de passe
+if ($asknewpass==1){
+echo '<div class="login"><form action="login.php" method="post">';
+echo '<input class="fake_submit" type="submit" name="cp_ok" value="Ok">';
+echo '<div class="titre_box margin_bottom">Réinitialisation de votre mot de passe</div>';
+if (isset($cp_erreur)) echo '<div class="erreurlogin margin_bottom '.$cp_erreur[0].'">'.$cp_erreur[1].'</div>';
+echo '<input class="input_text" type="password" name="cp_mdp" placeholder="nouveau mot de passe" required  value="">';
+echo '<input class="input_text" type="password" name="cp_mdpconfirm" placeholder="confirmation" required  value="">';
+echo '<input type="hidden" name="userid" value="'.$userid.'">';
+echo '<div class="margin_bottom_double"></div>';
+echo '<input class="bouton bt_green bt_plus" type="submit" name="cp_ok" value="Ok">';
+echo '<a href="login.php" class="bouton bt_green">Annuler</a>';
+echo '</form></div>';}
 
 
 
