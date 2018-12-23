@@ -20,7 +20,7 @@ if ($_POST['login']!='' && $_POST['mdp']!='' && !isset($_POST['mdpoublie']) && !
 			$_SESSION['nom'] = $row['nom'];
 			$_SESSION['email'] = $row['email'];
 			$_SESSION['sessionid']='kjFK_69kA5+k47gv-DG&ik';
-			
+			$_SESSION['userid'] = $row['id'];
 			header('Location: index.php'); exit();
 		}		
 	}
@@ -67,11 +67,14 @@ if (isset($_POST['ca_ok'])) {
 				$now = date("Y-m-d H:i:s");
 				$result = $db->exec("INSERT INTO users(login,passhash,prenom,nom,email,datecreated,datemodif,actif)
 						VALUES('$login','$passhash','$prenom','$nom','$email','$now','$now',1)");
+				
+				$userid = $db->lastInsertId();
 				//connecte new user
 				$_SESSION['login'] = $login;
 				$_SESSION['prenom'] = $prenom;
 				$_SESSION['nom'] = $nom;
 				$_SESSION['email'] = $email;
+				$_SESSION['userid'] = $userid;
 				$_SESSION['sessionid']='kjFK_69kA5+k47gv-DG&ik';
 				header('Location: index.php'); exit();
 				}

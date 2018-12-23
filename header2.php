@@ -19,6 +19,7 @@ $titre_site="FormCreator";
 <link rel="stylesheet" type="text/css" href="mobile.css">
 <link rel="icon" href="favicon.ico">
 <link rel="icon" type="image/png" href="favicon.png"> 
+<style>body{background:#b7ce0e;}</style>
 </head>
 <body>
 <div id="titre">

@@ -1,12 +1,9 @@
-/*=========General=============
+/*
 brun foncé=#30231d
 >>brun moyen=#6a5750
 brun clair=#b5a397
 presque blanc=#f6f1ed
-*/
 
-
-/*
  Primary color:
 
    shade 0 = #B7CE0E = rgb(183,206, 14) = rgba(183,206, 14,1) = rgb0(0.718,0.808,0.055)
@@ -42,13 +39,13 @@ presque blanc=#f6f1ed
 
 
 */
-
+/*--general*/
 *:focus {outline: none;}
 * {font-family: 'Open Sans', sans-serif;}
 a{text-decoration:none;color:black;}
 form{padding:0;margin:0;}
-#main{background: #fff;margin: 0 .5em;padding: 1em;border-radius: 3px;min-height: calc(100vh - 6em);}
-body{background:#b7ce0e;}
+#main{background: #fff;margin: 0 auto;padding: 1em;min-height: calc(100vh - 5em);max-width: 72em;}
+body{background:#fff;}
 
 .login_secondaire:hover,.bouton:hover{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
@@ -78,3 +75,58 @@ body{background:#b7ce0e;}
 #titre h1{display: inline-block;margin: 0;line-height: 2em;vertical-align: middle;padding: 0;font-size: 1.5em;color: #30231d;}
 .infos_header {float: right;margin: .5em;line-height: 2em;}
 .header_info {font-weight: bold;color: #6a5750;}
+
+/*--liste formulaires*/
+.form_box {font-weight: bold;background: #e0e0e0;display: inline-block;width: 13em;text-align: center;border-radius: 6px;border: 2px solid #fff;font-size: 1em;
+    position: relative;height: 8em;transition:all .2s ease;overflow:hidden;margin: 0 1em 1em 0;}
+.form_box:hover{border: 2px solid #292929;border-radius: 3px;}
+.form_new {position: absolute;font-size: 5em;font-weight: bold;top: 50%;left: 50%;transform: translate(-50%,-50%);color: #292929;padding: 0;margin: 0;}
+.form_title_new {position: absolute;bottom: -4em;left: 50%;transform: translatex(-50%);background: #292929;width: 13em;line-height: 2;color: white;border-radius: 0 0 3px 3px;transition:all .1s ease;}
+.form_box:hover .form_title_new{bottom: 0;}
+.form_list {margin: 1em 0;}
+.form_title {position: absolute;top: 40%;left: 50%;transform: translate(-50%,-50%);display: inline-block;width: 11em;color: #292929;}
+.form_icon {position: absolute;height: 1em;bottom: .5em;left: .5em;filter: opacity(.5);}
+.form_date {position: absolute;bottom: 0.7em;left: 2.5em;font-weight: initial;font-size: .8em;color: grey;}
+
+/*--formulaire seul*/
+.form_titre {font-size: 1.5em;font-weight: bold;color: #353535;text-align: center;border: none;background: none;width: 100%;line-height: 2em;margin: 1em 0;}
+.form_titre:focus {background:white;}
+.question_box {background: #f1f1f1;padding: 1em;}
+.form_description {width: 100%;text-align: center;padding: 0 1em;background: none;border: none;resize: vertical;padding: .5em;}
+.form_description:focus {background:white;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

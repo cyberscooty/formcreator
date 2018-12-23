@@ -13,6 +13,7 @@ if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik'){
 
 
 $titre_site="FormCreator";
+include 'functions.php';
  ?>
 
 <html>
