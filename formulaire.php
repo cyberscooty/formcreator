@@ -63,7 +63,7 @@ if ($row_count==0){//echo '<div class="question_box" style="text-align:center;">
 	$result = $db->exec("INSERT INTO questions(form_id, datecreated,type) VALUES($form_id, '$now',1)");
 	$insertId = $db->lastInsertId();}
 	
-	
+	$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id'");
 	//questions déjà enregistrés
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {echo '<div class="question_box">'.$row['titre'].' '.$row['type'].'';$question_id=$row['id'];
 		$result2 = $db->query("SELECT * FROM data WHERE question_id='$question_id'");
