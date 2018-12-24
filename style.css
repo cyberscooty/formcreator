@@ -47,13 +47,14 @@ form{padding:0;margin:0;}
 #main{background: #fff;margin: 0 auto;padding: 1em;min-height: calc(100vh - 5em);max-width: 72em;}
 body{background:#fff;}
 
-.login_secondaire:hover,.bouton:hover{cursor: pointer;}
+.login_secondaire:hover,.bouton:hover,label{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
 .margin_bottom_double{margin-bottom:2em;}
 .bt_seul {display: block;text-align: center;margin: 0 auto;}
 .bt_plus{margin-right:1em;}
 .bouton {border: none;border-radius: 3px;padding: .5em 2em;font-weight: bold;line-height: 1em;height: 2.4em;vertical-align: middle;}
 .bt_green {background: #6a5750;color: white;}
+.align_center{text-align:center;}
 
 
 /*--login*/
@@ -91,12 +92,16 @@ body{background:#fff;}
 /*--formulaire seul*/
 .form_titre {font-size: 1.5em;font-weight: bold;color: #353535;text-align: center;border: none;background: none;width: 100%;line-height: 2em;margin: 1em 0;}
 .form_titre:focus {background:white;}
-.question_box {background: #f1f1f1;padding: 1em;}
+.question_box {background: #f1f1f1;padding: 1em 3em;}
 .form_description {width: 100%;text-align: center;padding: 0 1em;background: none;border: none;resize: vertical;padding: .5em;}
 .form_description:focus {background:white;}
+.add_new_question {display: inline-block;width: 11em;background: #505050;margin: 2em 1em 0;padding: .5em 2em;border-radius: 3px;color: white;}
 
 
-
+#view_add_box {display: none;}
+.menu_add_question {display: none;}
+#view_add_box:checked+label>.menu_add_question {display: block;}
+#view_add_box:checked+label {}
 
 
 

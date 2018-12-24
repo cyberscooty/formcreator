@@ -1,5 +1,19 @@
 <?php include 'header.php';
 
+//type questions
+//1		réponses courte
+//2		Paragraphe
+//3		choix multiple (radio)
+//4		cases à cocher (checkbox)
+//5		Liste déroulante
+//6		echélle linéaire
+//7		Grille à choix multiple (radio)
+//8		grille de cases à cocher (checkbox)
+//9		date
+//10	heure
+	
+
+
 
 
 //--récupère uniqueid si existe
@@ -44,9 +58,26 @@ echo '</div>';
 
 $result = $db->query("SELECT * FROM questions WHERE form_id='$form_id'");
 $row_count = $result->rowCount();
-if ($row_count==0){echo '<div class="question_box" style="text-align:center;">-Ce formulaire ne contient pas encore de question-</div>';}
+if ($row_count==0){//echo '<div class="question_box" style="text-align:center;">-Ce formulaire ne contient pas encore de question-</div>';
+	$now = date("Y-m-d H:i:s");
+	$result = $db->exec("INSERT INTO questions(form_id, datecreated,type) VALUES($form_id, '$now',1)");
+	$insertId = $db->lastInsertId();}
+	
+	
+	//questions déjà enregistrés
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {echo '<div class="question_box">'.$row['titre'].' '.$row['type'].'';$question_id=$row['id'];
+		$result2 = $db->query("SELECT * FROM data WHERE question_id='$question_id'");
+		while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {echo $row2['valeur'].'<br>'; }
+	
+	echo '</div>';
+	}
+	
 
-echo '<input type="checkbox" id="view_add_box" name=""><label for="view_add_box" class="add_box">ajouter une question<br>Ajouter un titre</label>';
+
+//--boutons ajout question ou titre
+echo '<div class="question_box align_center">';
+echo '<div class="add_new_question">Ajouter une question</div><div class="add_new_question">Ajouter un titre</div>';
+echo '</div>';
 
 
 
