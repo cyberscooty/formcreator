@@ -15,9 +15,16 @@ include 'form_cas.php';
 //10	heure
 	
 
-echo '<form action="formulaire.php" method="post">';
+echo '<form action="formulaire.php" class="one_formulaire" method="post">';
 echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Enregistrer les modifications">';
+
+//--boutons ajout question ou titre
+echo '<div class="box_droite"><input type="submit" name="add_question" class="bt_droite bt_plus" value="" title="Ajouter une question">
+	<input type="submit" name="add_titre" class="bt_droite bt_titre" value="" title="Ajouter un titre">
+	<input type="submit" class="bt_droite bt_save" name="ok" value="" title="Valider les modifications">
+	<input type="submit" class="bt_droite bt_back" name="back" value="" title="Retour page principale "></div>';
+
 echo '<div class="question_box">';
 echo '<input type="text" name="form_titre" class="form_titre" value="'.$form_titre.'" placeholder="Titre du formulaire" required>';
 echo '<textarea name="form_description" class="form_description" placeholder="Description du formulaire">'.$form_description.'</textarea>';
@@ -48,9 +55,9 @@ if ($row_count==0){ //création d'une question si vide
 		echo '<input type="text" name="quest_titre'.$qid.'" class="quest_titre" value="'.$row['titre'].'" placeholder="Titre de la question">';
 		echo '<div class="question_type"><select name="type'.$qid.'">';
 			if ($question_type==1){$checked=' selected';} else{$checked='';}
-			echo '	<option value="1" '.$checked.'>Réponses courte</option>';
+			echo '	<option value="1" '.$checked.'>Réponse courte</option>';
 			if ($question_type==2){$checked=' selected';} else{$checked='';}
-			echo '	<option value="2" '.$checked.'>Paragraphe</option>';
+			echo '	<option value="2" '.$checked.'>Réponse longue</option>';
 			if ($question_type==3){$checked=' selected';} else{$checked='';}
 			echo '	<option value="3" '.$checked.'>Choix multiple (radio)</option>';
 			if ($question_type==4){$checked=' selected';} else{$checked='';}
@@ -64,9 +71,9 @@ if ($row_count==0){ //création d'une question si vide
 			if ($question_type==10){$checked=' selected';} else{$checked='';}
 			echo '	<option value="10" '.$checked.'>Heure</option></select>';
 			
-			echo '<input type="submit" value="" title="Descendre" class="question_options question_options1">';
-			echo '<input type="submit" value="" title="Monter" class="question_options question_options2">';
-			echo '<input type="submit" value="" title="Supprimer cette question" class="question_options question_options3">';
+			echo '<input type="submit" value="descendre" title="Descendre" class="question_options question_options1">';
+			echo '<input type="submit" value="monter" title="Monter" class="question_options question_options2">';
+			echo '<input type="submit" value="suppr_question" name="suppr_question'.$qid.'" title="Supprimer cette question" class="question_options question_options3">';
 			
 			echo '</div>';
 				
@@ -78,18 +85,13 @@ if ($row_count==0){ //création d'une question si vide
 	
 
 
-//--bouton Enregistrer modif
-echo '<div class="question_box align_center">';
-echo '<input type="submit" class="add_new_question" name="ok" value="Enregistrer les modifications">';
-echo '</div>';
 
 
 
-//--boutons ajout question ou titre
-echo '<div class="align_center"><input type="submit" class="add_new_question" name="add_question" value="Ajouter une question">
-	<input type="submit" class="add_new_question"  name="add_titre" value="Ajouter un titre"></div>';
 
 
+
+echo '<div id="bottom"></div>';
 echo '</form>';
 
 

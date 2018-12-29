@@ -37,18 +37,25 @@ $mustsave=0;
 		$data_id=$row['data_id'];
 		if($_POST['suppr'.$data_id]=='+'){$affected_rows = $db->exec("DELETE FROM data WHERE id=$data_id");$mustsave=1;}
 	}
-	
+
+//--Supprime question
+	$result = $db->query("SELECT id FROM questions WHERE form_id=$form_id");
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$qid=$row['id'];
+		if($_POST['suppr_question'.$qid]=='suppr_question'){$affected_rows = $db->exec("DELETE FROM questions WHERE id=$qid");$mustsave=1;}
+		
+	}
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1){
-	echo 'enregistrement';
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1 || isset($_POST['back'])){
+	$modif=0;
 	include 'connect.php';
 	
 	//--Enregistre modif formulaire
 	$form_titre=mysql_real_escape_string(trim($_POST['form_titre']));
 	$form_description=mysql_real_escape_string(trim($_POST['form_description']));
 	$affected_rows = $db->exec("UPDATE formulaires SET titre='$form_titre',description='$form_description' WHERE id=$form_id");
-	
+	$modif=$modif+$affected_rows;
 	
 	//--Enregistre modif questions
 	$result = $db->query("SELECT id FROM questions WHERE form_id='$form_id'");
@@ -58,7 +65,7 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 		$titre=mysql_real_escape_string(trim($_POST['quest_titre'.$id]));
 		$description=$_POST['quest_descr'.$id];
 		$affected_rows = $db->exec("UPDATE questions SET titre='$titre',description='$description',type='$type' WHERE id=$id");
-		
+		$modif=$modif+$affected_rows;
 			
 	}
 	
@@ -70,7 +77,7 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 			$data_id=$row['data_id'];
 			$valeur=$_POST['champ'.$data_id];
 			if($valeur!=''){$affected_rows = $db->exec("UPDATE data SET valeur='$valeur' WHERE id=$data_id");}
-			
+			$modif=$modif+$affected_rows;
 			
 			}
 		
@@ -90,11 +97,13 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 			
 			
 			
-		if ($radionew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$radionew',0,'$now')");}
-		if ($chknew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$chknew',0,'$now')");}
-		if ($listnew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$listnew',0,'$now')");}
+		if ($radionew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$radionew',0,'$now')");$modif=$modif+$addnewvalue;}
+		if ($chknew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$chknew',0,'$now')");$modif=$modif+$addnewvalue;}
+		if ($listnew!=''){$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$id', '$listnew',0,'$now')");$modif=$modif+$addnewvalue;}
 		}
 	
+	
+	echo '<div class="save_ok">Les modifications ont été enregistrées</div>';
 	
 	}
 
@@ -104,15 +113,17 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 if(isset($_POST['add_question'])){
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
-	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Question sans titre', '$now',3)");}
-
+	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Question sans titre', '$now',3)");
+	header('Location: formulaire.php?form='.$uniqueid.'#bottom'); exit();}
+	
 	
 	
 //--Ajouter titre
 if(isset($_POST['add_titre'])){echo 'add titre';}
 
 
-	
+//--Retour page principale
+if(isset($_POST['back'])){header('Location: index.php'); exit();}	
 	
 	
 	
