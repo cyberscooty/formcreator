@@ -55,7 +55,6 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 	//--Enregistre modif formulaire
 	$form_titre=mysql_real_escape_string(trim($_POST['form_titre']));
 	$form_description=mysql_real_escape_string(trim($_POST['form_description']));
-	echo 'now='.$now;
 	$affected_rows = $db->exec("UPDATE formulaires SET titre='$form_titre',description='$form_description',datemodif='$now' WHERE id=$form_id");
 	$modif=$modif+$affected_rows;
 	
@@ -139,7 +138,16 @@ if(isset($_POST['add_titre'])){echo 'add titre';}
 //--Retour page principale
 if(isset($_POST['back'])){header('Location: index.php'); exit();}	
 	
+//--Aperçu formulaire
+if(isset($_POST['view'])){
+	?>
+	<script type="text/javascript">window.open('formulaireview.php?form=<?php echo $uniqueid;?>');</script>
+	<?php
 	
+	
+	
+	}	
+
 	
 	
 	
