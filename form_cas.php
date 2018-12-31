@@ -85,6 +85,7 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 		$result = $db->query("SELECT id FROM questions WHERE form_id='$form_id'");
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$id=$row['id'];
+			$qid=$row['id'];
 			$type=$_POST['type'.$id];
 			$radionew=mysql_real_escape_string(trim($_POST['radionew'.$id]));
 			$chknew=mysql_real_escape_string(trim($_POST['chknew'.$id]));
@@ -93,7 +94,15 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 			$numB=$_POST['numB'.$id];
 			$now = date("Y-m-d H:i:s");
 			
-			if ($type==6){}//verifie si déjà une valeur -> UPDATE sinon INSERT
+			if ($type==6){
+				$maxid=$_POST['maxid'.$qid];
+				$minid=$_POST['minid'.$id];
+				$min=$_POST['min'.$qid];
+				$max=$_POST['max'.$qid];
+					$affected_rows = $db->exec("UPDATE data SET valeur='$min' WHERE id=$minid");$modif=$modif+$affected_rows;
+					$affected_rows = $db->exec("UPDATE data SET valeur='$max' WHERE id=$maxid");$modif=$modif+$affected_rows;
+					
+			}
 			
 			
 			
@@ -114,6 +123,11 @@ if(isset($_POST['add_question'])){
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
 	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Question sans titre', '$now',3)");
+	$insertId = $db->lastInsertId();
+		$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$insertId', 0,1,'$now')");
+		$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$insertId', 5,1,'$now')");
+	
+	
 	header('Location: formulaire.php?form='.$uniqueid.'#bottom'); exit();}
 	
 	

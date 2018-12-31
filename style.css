@@ -112,7 +112,7 @@ body{background:#fff;}
 .bt_view{background: url("img/icon_view.svg");background-size: cover;}
 
 
-.save_ok {color: white;font-weight: bold;text-align: center;animation: disparition 2s forwards;position: absolute;top: 0;left: 0;width: 100%;z-index: 2;}
+.save_ok {color: white;font-weight: bold;text-align: center;animation: disparition 2s forwards;position: absolute;top: 5em;left: calc(50% - 34em);width: 67em;z-index: 2;border-radius: 3px 3px 0 0;}
 @keyframes disparition {
   0% {font-size:1em;padding: .5em;background: #c2d81d;}
   80% {font-size:1em;padding: .5em;background: #c2d81d;}

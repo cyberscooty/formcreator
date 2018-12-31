@@ -53,9 +53,23 @@
 		
 		if ($question_type==6) //échelle linéaire
 			{
-				$champ1=0;$champ2=5;
-					echo 'Echelle de valeur de <input type="number" class="values_default align_center" name="numA'.$qid.'" value="'.$champ1.'" MIN=-100 MAX=100> à ';
-					echo '<input type="number" class="values_default align_center" name="numB'.$qid.'" value="'.$champ2.'" MIN=-100 MAX=100>';
+				
+				$result2 = $db->query("SELECT * FROM data WHERE question_id='$qid' AND is_secondary=1 ORDER BY valeur ASC LIMIT 1");
+				while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {$min=(int)$row2['valeur'];$minid=$row2['id'];}
+				
+				$result2 = $db->query("SELECT * FROM data WHERE question_id='$qid' AND is_secondary=1 ORDER BY valeur DESC LIMIT 1");
+				while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {$max=(int)$row2['valeur'];$maxid=$row2['id'];}
+					
+				
+					echo 'Echelle de valeur de <input type="number" class="values_default align_center" name="min'.$qid.'" value="'.$min.'" MIN=-10 MAX=10> à ';
+					echo '<input type="number" class="values_default align_center" name="max'.$qid.'" value="'.$max.'" MIN=-10 MAX=10>';
+					echo '<input type="hidden" name="minid'.$qid.'" value="'.$minid.'">';
+					echo '<input type="hidden" name="maxid'.$qid.'" value="'.$maxid.'">';
+					
+					
+					
+						
+				
 			}
 
 		if ($question_type==7) //Grille à choix multiple (radio)
