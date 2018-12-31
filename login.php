@@ -180,7 +180,7 @@ echo '<input class="input_text" type="text" name="ca_login" placeholder="Login d
 echo '<input class="input_text" type="text" name="ca_prenom" placeholder="Prénom" required value="'.$prenom.'">';
 echo '<input class="input_text" type="text" name="ca_nom" placeholder="Nom" required value="'.$nom.'">';
 echo '<input class="input_text" type="text" name="ca_email" placeholder="Adresse email" required  value="'.$email.'">';
-echo '<div class="tips">L\'adresse email ne sera utilisée que pour renvoyer un mot de passe oublié</div>';
+echo '<div class="tips">L\'adresse email ne sera utilisée que pour FormCreator</div>';
 echo '<div class="margin_bottom_double"></div>';
 echo '<input class="input_text" type="password" name="ca_mdp" placeholder="mot de passe" required>';
 echo '<input class="input_text" type="password" name="ca_mdpconfirm" placeholder="confirmation" required>';
