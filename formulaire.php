@@ -18,8 +18,15 @@ include 'form_cas.php';
 echo '<form action="formulaire.php" class="one_formulaire" method="post">';
 echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Enregistrer les modifications">';
+//--bouton retour en haut à gauche
+echo '<input type="submit" class="bt_hautgauche" name="back" value="" title="Retour page principale">';
 
-//--boutons ajout question ou titre
+
+
+
+
+
+//--boutons à droite (ajout question ou titre)
 echo '<div class="box_droite"><input type="submit" name="add_question" class="bt_droite bt_add_question" value="" title="Ajouter une question">
 	<input type="submit" name="add_titre" class="bt_droite bt_titre" value="" title="Ajouter un titre">
 	<input type="submit" class="bt_droite bt_save" name="ok" value="" title="Valider les modifications">
@@ -27,6 +34,10 @@ echo '<div class="box_droite"><input type="submit" name="add_question" class="bt
 	<input type="submit" class="bt_droite bt_back" name="back" value="" title="Retour page principale">
 	</div>';
 
+
+	
+	
+//--titre formulaire
 echo '<div class="question_box">';
 echo '<input type="text" name="form_titre" class="form_titre" value="'.$form_titre.'" placeholder="Titre du formulaire" required>';
 echo '<textarea name="form_description" class="form_description" placeholder="Description du formulaire">'.$form_description.'</textarea>';

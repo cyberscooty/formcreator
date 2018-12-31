@@ -11,10 +11,9 @@ if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik'){
 	header('Location: login.php'); exit();
 }
 
-
 $titre_site="FormCreator";
 include 'functions.php';
- ?>
+?>
 
 <html>
 <head>
@@ -33,9 +32,7 @@ include 'functions.php';
 
 <div class="infos_header">
 <?php
-
 	echo '<a class="header_info" href="disconnect.php" title="Se déconnecter">'.ucfirst($_SESSION['prenom']).' '.mb_strtoupper($_SESSION['nom']).'</a>';
-
 ?>
 
 </div>
