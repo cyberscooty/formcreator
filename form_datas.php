@@ -59,7 +59,11 @@
 				
 				$result2 = $db->query("SELECT * FROM data WHERE question_id='$qid' AND is_secondary=1 ORDER BY valeur DESC LIMIT 1");
 				while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {$max=(int)$row2['valeur'];$maxid=$row2['id'];}
-					
+				
+				if (!$minid && !$maxid){//si pas encore de valeurs -> valeurs par défaut 0 - 5
+					$min=0;$max=5;
+					$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$qid', 0,1,'$now')");$minid = $db->lastInsertId();
+					$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$qid', 5,1,'$now')");$maxid=$db->lastInsertId();}
 				
 					echo 'Echelle de valeur de <input type="number" class="values_default align_center" name="min'.$qid.'" value="'.$min.'" MIN=-10 MAX=10> à ';
 					echo '<input type="number" class="values_default align_center" name="max'.$qid.'" value="'.$max.'" MIN=-10 MAX=10>';

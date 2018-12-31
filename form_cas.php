@@ -49,12 +49,14 @@ $mustsave=0;
 //--Enregistre modif
 if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1 || isset($_POST['back'])){
 	$modif=0;
+	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
 	
 	//--Enregistre modif formulaire
 	$form_titre=mysql_real_escape_string(trim($_POST['form_titre']));
 	$form_description=mysql_real_escape_string(trim($_POST['form_description']));
-	$affected_rows = $db->exec("UPDATE formulaires SET titre='$form_titre',description='$form_description' WHERE id=$form_id");
+	echo 'now='.$now;
+	$affected_rows = $db->exec("UPDATE formulaires SET titre='$form_titre',description='$form_description',datemodif='$now' WHERE id=$form_id");
 	$modif=$modif+$affected_rows;
 	
 	//--Enregistre modif questions
@@ -64,7 +66,7 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 		$type=$_POST['type'.$id];
 		$titre=mysql_real_escape_string(trim($_POST['quest_titre'.$id]));
 		$description=$_POST['quest_descr'.$id];
-		$affected_rows = $db->exec("UPDATE questions SET titre='$titre',description='$description',type='$type' WHERE id=$id");
+		$affected_rows = $db->exec("UPDATE questions SET titre='$titre',description='$description',type='$type',datemodified='$now' WHERE id=$id");
 		$modif=$modif+$affected_rows;
 			
 	}
@@ -76,7 +78,7 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$data_id=$row['data_id'];
 			$valeur=$_POST['champ'.$data_id];
-			if($valeur!=''){$affected_rows = $db->exec("UPDATE data SET valeur='$valeur' WHERE id=$data_id");}
+			if($valeur!=''){$affected_rows = $db->exec("UPDATE data SET valeur='$valeur',datemodified='$now' WHERE id=$data_id");}
 			$modif=$modif+$affected_rows;
 			
 			}
@@ -92,15 +94,14 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 			$listnew=mysql_real_escape_string(trim($_POST['listnew'.$id]));
 			$numA=$_POST['numA'.$id];
 			$numB=$_POST['numB'.$id];
-			$now = date("Y-m-d H:i:s");
-			
+						
 			if ($type==6){
 				$maxid=$_POST['maxid'.$qid];
 				$minid=$_POST['minid'.$id];
 				$min=$_POST['min'.$qid];
 				$max=$_POST['max'.$qid];
-					$affected_rows = $db->exec("UPDATE data SET valeur='$min' WHERE id=$minid");$modif=$modif+$affected_rows;
-					$affected_rows = $db->exec("UPDATE data SET valeur='$max' WHERE id=$maxid");$modif=$modif+$affected_rows;
+					$affected_rows = $db->exec("UPDATE data SET valeur='$min',datemodified='$now' WHERE id=$minid");$modif=$modif+$affected_rows;
+					$affected_rows = $db->exec("UPDATE data SET valeur='$max',datemodified='$now' WHERE id=$maxid");$modif=$modif+$affected_rows;
 					
 			}
 			
@@ -123,9 +124,8 @@ if(isset($_POST['add_question'])){
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
 	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Question sans titre', '$now',3)");
-	$insertId = $db->lastInsertId();
-		$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$insertId', 0,1,'$now')");
-		$addnewvalue = $db->exec("INSERT INTO data(question_id, valeur,is_secondary,datecreated) VALUES('$insertId', 5,1,'$now')");
+	//$insertId = $db->lastInsertId();
+		
 	
 	
 	header('Location: formulaire.php?form='.$uniqueid.'#bottom'); exit();}
