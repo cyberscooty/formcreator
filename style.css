@@ -85,7 +85,8 @@ body{background:#fff;}
 .form_title_new {position: absolute;bottom: -4em;left: 50%;transform: translatex(-50%);background: #292929;width: 13em;line-height: 2;color: white;border-radius: 0 0 3px 3px;transition:all .1s ease;}
 .form_box:hover .form_title_new{bottom: 0;}
 .form_list {margin: 1em 0;}
-.form_title {position: absolute;top: 40%;left: 50%;transform: translate(-50%,-50%);display: inline-block;width: 11em;color: #292929;}
+.form_title {position: absolute;top: 1em;left: 50%;transform: translateX(-50%);display: inline-block;width: 11em;color: #292929;}
+.form_descr{color: grey;font-size: .8em;font-weight: initial;position: absolute;top: 3.5em;left: 50%;transform: translateX(-50%);width: 90%;height: 4em;/*overflow: hidden;white-space: nowrap;text-overflow: ellipsis;*/}
 .form_icon {position: absolute;height: 1em;bottom: .5em;left: .5em;filter: opacity(.5);}
 .form_date {position: absolute;bottom: 0.7em;left: 2.5em;font-weight: initial;font-size: .8em;color: grey;}
 .form_options1{bottom: .5em;right: .5em;background: url("img/icon_trash.svg");background-size:cover;z-index: 3;}
@@ -142,13 +143,12 @@ body{background:#fff;}
 .question_options:hover{filter: opacity(0.8);}
 .question_options3:hover{transform:rotate(15deg);}
 
+/*--aperçu*/
 
 
-#view_add_box {display: none;}
-.menu_add_question {display: none;}
-#view_add_box:checked+label>.menu_add_question {display: block;}
-#view_add_box:checked+label {}
-
+.view_select{height: 2em;min-width: 10em;}
+.ligne1,.ligne2 {display: inline-block;width: 2.5em;text-align: center;}
+.ligne2 {margin-top: 0.5em;}
 
 
 

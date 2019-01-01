@@ -47,7 +47,7 @@ $mustsave=0;
 	}
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1 || isset($_POST['back'])){
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1 || isset($_POST['back']) || isset($_POST['view'])){
 	$modif=0;
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
