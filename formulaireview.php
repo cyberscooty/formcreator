@@ -13,7 +13,7 @@ $uniqueid=mysql_real_escape_string(trim($_GET['form']));
 
 
 
-//echo 'formulaire view '.$uniqueid;
+
 echo '<form action="formviewsave.php" class="one_formulaire" method="post">';
 echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
 echo '<input type="hidden" name="form_id" value="'.$form_id.'">';
@@ -33,14 +33,19 @@ echo '</div>';
 $result = $db->query("SELECT * FROM questions WHERE form_id='$form_id'");
 while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	echo '<div class="question_box">';
-	$qid=$row['id'];$question_type=$row['type'];
-	echo '<div class="quest_titre">'.$row['titre'].'</div>';
+	$qid=$row['id'];$question_type=$row['type'];$is_required=$row['is_required'];
+	
+	//--titre
+	echo '<div class="quest_titre">'.$row['titre'];
+	if ($is_required==1){echo '<div class="is_required" title="Champ requis">*</div>';}
+	echo '</div>';
+	
 	include 'form_view_datas.php';
 	
 	echo '</div>';
 }
 
-echo '<input type="submit" name="validform" value="Valider">';
+echo '<input type="submit" class="bouton bt_valid" name="validform" value="Valider">';
 
 echo '</form>';
 

@@ -38,8 +38,12 @@ echo '<div class="box_droite"><input type="submit" name="add_question" class="bt
 	
 	
 //--titre formulaire
+
 echo '<div class="question_box">';
 echo '<input type="text" name="form_titre" class="form_titre" value="'.$form_titre.'" placeholder="Titre du formulaire" required>';
+//######################################################
+//ajouter ici un bouton ON/OFF pour champs obligatoire
+//######################################################
 echo '<textarea name="form_description" class="form_description" placeholder="Description du formulaire">'.stripcslashes($form_description).'</textarea>';
 echo '</div>';
 

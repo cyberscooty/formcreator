@@ -47,7 +47,7 @@ form{padding:0;margin:0;}
 #main{margin: 1em auto 6em;min-height: calc(100vh - 5em);max-width: 68em;}
 body{background:#fff;}
 
-.login_secondaire:hover,.bouton:hover,label,.supprval,.bt_droite,.form_options1,.bt_hautgauche{cursor: pointer;}
+.login_secondaire:hover,.bouton:hover,label,.supprval,.bt_droite,.form_options1,.bt_hautgauche,.is_required{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
 .margin_bottom_double{margin-bottom:2em;}
 .bt_seul {display: block;text-align: center;margin: 0 auto;}
@@ -144,19 +144,31 @@ body{background:#fff;}
 .question_options3:hover{transform:rotate(15deg);}
 
 /*--aperçu*/
-
-
 .view_select{height: 2em;min-width: 10em;}
-.ligne1,.ligne2 {display: inline-block;width: 2.5em;text-align: center;}
+.is_required {display: inline-block;font-size: 0.8em;font-weight: bold;color: #c30000;margin-left: 1em;}
+.ligne1,.ligne2 {display: inline-block;width: 2.5em;text-align: center;position:relative;}
 .ligne2 {margin-top: 0.5em;}
+.bt_valid{background: #b6ca1f;color: white;margin: -1em auto 0;display: table;font-size: 1.4em;border-radius: 0.2em;}
 
 
+/*--Nice checkbox*/
+.elmt_box {position: relative;}
+.inputcheckbox{display:none;}
+.inputcheckbox~label {padding: 0 0 0 2em;z-index: 8;position: absolute;top:0;left:0;}
+.nice_checkbox {width: 1em;height: 1em;background: rgba(0,0,0,.1);display: inline-block;vertical-align: middle;margin-bottom: 1em;border: 1px solid rgba(0,0,0,.2);border-radius: 3px;position:relative;}
+.inputcheckbox:checked + .nice_checkbox:after{content: "\2714";position:absolute;bottom: 0;left: 0;font-size: 1.5em;color: #819203;}
 
+/*--Nice radio*/
+.inputradio{display:none;}
+.inputradio~label {padding: 0 0 0 2em;z-index: 8;position: absolute;top:0;left:0;}
+.nice_radio {width: 1em;height: 1em;background: rgba(0,0,0,.1);display: inline-block;vertical-align: middle;margin-bottom: 1em;border: 1px solid rgba(0,0,0,.2);border-radius: 50%;position:relative;}
+.inputradio:checked + .nice_radio:after{content: " ";width: 0.5em;height: 0.5em;line-height: 1em;position: absolute;border-radius: 50%;top: 50%;left: 50%;transform: translate(-50%,-50%);background-color:#8d9c17;background-image: radial-gradient(#c2d81d, #8d9c17 50%);}
 
-
-
-
-
+/*--Nice echelle*/
+.ligne1 label{width: 1.2em;margin: 0 0 -1.6em 0;display: inline-block;padding: 0 0 1.5em 0;z-index: 1;position: absolute;top: 0;left: 50%;transform: translateX(-50%);}
+.view_echelle{display:none;}
+.nice_echelle {border: 1px solid rgba(0,0,0,.2);background: rgba(0,0,0,.1);width: 1em;height: 1em;border-radius: 50%;position: absolute;top: 1em;left: 50%;transform: translateX(-50%);}
+.view_echelle:checked +.nice_echelle:after{content: " ";width: 0.5em;height: 0.5em;line-height: 1em;position: absolute;border-radius: 50%;top: 50%;left: 50%;transform: translate(-50%,-50%);background-color:#8d9c17;background-image: radial-gradient(#c2d81d, #8d9c17 50%);}
 
 
 
