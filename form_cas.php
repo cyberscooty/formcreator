@@ -45,9 +45,40 @@ $mustsave=0;
 		if($_POST['suppr_question'.$qid]=='suppr_question'){$affected_rows = $db->exec("DELETE FROM questions WHERE id=$qid");$mustsave=1;}
 		
 	}
+
+
+
+//--Monter / Descendre
+$result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id");
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$qid=$row['id'];
+		$position=(int)$row['position'];
+		if($_POST['monter'.$qid]=='monter'){echo 'monter';$mustsave=2;$position=$position-3;}
+		if($_POST['descendre'.$qid]=='descendre'){echo 'descendre ';$mustsave=2;$position=$position+3;}
+		
+		if ($mustsave==2){$affected_rows = $db->exec("UPDATE questions SET position='$position' WHERE id=$qid");$mustsave=$mustsave-1;$recalcul_pos=1;}
+		
+	}	
+
+
+//--recalcul positions
+	if ($recalcul_pos==1){
+		$result = $db->query("SELECT id FROM questions WHERE form_id=$form_id ORDER BY position ASC");
+		$newpos=0;
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$qid=$row['id'];
+			$newpos=$newpos+2;
+			$affected_rows = $db->exec("UPDATE questions SET position='$newpos' WHERE id=$qid");echo 'qid='.$qid.' newpos='.$newpos.' saved='.$affected_rows;
+			
+		}
+	}
+
+
+
+
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave==1 || isset($_POST['back']) || isset($_POST['view'])){
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view'])){
 	$modif=0;
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
@@ -63,9 +94,10 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$id=$row['id'];
 		$type=$_POST['type'.$id];
+		$is_required=$_POST['required'.$id];
 		$titre=mysql_real_escape_string(trim($_POST['quest_titre'.$id]));
 		$description=$_POST['quest_descr'.$id];
-		$affected_rows = $db->exec("UPDATE questions SET titre='$titre',description='$description',type='$type',datemodified='$now' WHERE id=$id");
+		$affected_rows = $db->exec("UPDATE questions SET titre='$titre',description='$description',type='$type',is_required='$is_required',datemodified='$now' WHERE id=$id");
 		$modif=$modif+$affected_rows;
 			
 	}
@@ -132,7 +164,11 @@ if(isset($_POST['add_question'])){
 	
 	
 //--Ajouter titre
-if(isset($_POST['add_titre'])){echo 'add titre';}
+if(isset($_POST['add_titre'])){
+	$now = date("Y-m-d H:i:s");
+	include 'connect.php';
+	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Titre', '$now',0)");
+	}
 
 
 //--Retour page principale
@@ -143,12 +179,9 @@ if(isset($_POST['view'])){
 	?>
 	<script type="text/javascript">window.open('formulaireview.php?form=<?php echo $uniqueid;?>');</script>
 	<?php
-	
-	
-	
-	}	
+	}
 
-	
+
 	
 	
 	

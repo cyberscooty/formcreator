@@ -30,11 +30,19 @@ echo '<div class="form_description">'.nl2br($form_description).'</div>';
 echo '</div>';
 
 //--questions
-$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id'");
+$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id' ORDER BY position");
 while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-	echo '<div class="question_box">';
+	
 	$qid=$row['id'];$question_type=$row['type'];$is_required=$row['is_required'];
 	
+//--titre seul
+	if ($question_type==0){ //titre seul
+			echo '<div class="titre_seul_box"><div class="titre_seul">'.$row['titre'].'</div></div>';}	
+	
+
+	
+if ($question_type!=0){	
+	echo '<div class="question_box">';
 	//--titre
 	echo '<div class="quest_titre">'.$row['titre'];
 	if ($is_required==1){echo '<div class="is_required" title="Champ requis">*</div>';}
@@ -42,7 +50,7 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	
 	include 'form_view_datas.php';
 	
-	echo '</div>';
+	echo '</div>';}
 }
 
 echo '<input type="submit" class="bouton bt_valid" name="validform" value="Valider">';

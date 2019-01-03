@@ -5,16 +5,19 @@ echo '<div class="question_values">';
 
 if($is_required==1){$required=' required';} else {$required='';}
 
+
+	
+
 	if ($question_type==1) //réponse courte
 		{
 		
-		echo '<input name="champ'.$qid.'" class="values_default type1" type="text" value="" '.$required.'>';	
+		echo '<input name="champ'.$qid.'" class="values_default type4" type="text" value="" '.$required.'>';	
 		}
 
 	if ($question_type==2) //paragraphe
 		{
 		
-		echo '<textarea class="type2" name="champ'.$qid.'" '.$required.'></textarea>'; 	
+		echo '<textarea class="values_default type5" name="champ'.$qid.'" '.$required.'></textarea>'; 	
 		}
 
 	if ($question_type==3) //choix multiple (radio)
@@ -76,13 +79,13 @@ if($is_required==1){$required=' required';} else {$required='';}
 	
 	if ($question_type==9) //Date
 		{
-		echo '<input type="date" name="date'.$qid.'" value="" '.$required.'>';
+		echo '<input type="date" class="values_default" name="date'.$qid.'" value="" '.$required.'>';
 			
 		}
 		
 	if ($question_type==10) //Heure
 		{
-		echo '<input type="time" name="time'.$qid.'" value="" '.$required.'>';	
+		echo '<input type="time" class="values_default" name="time'.$qid.'" value="" '.$required.'>';	
 		}
 
 

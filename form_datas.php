@@ -103,6 +103,9 @@
 			}
 		
 		
+		
+		
+		
 		//echo '<input type="submit" class="add_new_question" value="Ok">';
 			
 		echo '</div>';
