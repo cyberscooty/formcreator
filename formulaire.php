@@ -61,10 +61,6 @@ if ($row_count==0){ //création d'une question si vide
 	$insertId = $db->lastInsertId();}
 	
 	
-	//recherche position max
-	$result = $db->query("SELECT MAX(position) AS posmax FROM questions WHERE form_id='$form_id' ORDER BY position ASC");
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$posmax=$row['posmax'];}
-	
 	//affiche questions déjà enregistrés
 	$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id' ORDER BY position");
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {

@@ -1,7 +1,20 @@
 <?php
 include 'header.php';
 //--Retour page principale
-if(isset($_POST['back'])){header('Location: index.php'); exit();}
+if(isset($_POST['back'])){
+	//header('Location: index.php'); exit();
+	?>
+	
+	<script>window.close();</script>
+	
+	<?php
+	
+	
+	}
+
+
+
+
 
 
 $form_id=$_POST['form_id'];
@@ -38,11 +51,11 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 }
 
 
-echo '-- Merci de votre participation, vos réponses ont été enregistrées--';
+echo '<div class="merci">Merci de votre participation, vos réponses ont été enregistrées</div>';
+echo '<form action="formviewsave.php" class="one_formulaire" method="post">';
+echo '<input type="submit" class="bouton bt_valid" name="back" value="Fermer cette fenêtre">';
+echo '</form>';
 
-//#########################
-//Reste à faire : bouton retour
-//#########################
 
 
 

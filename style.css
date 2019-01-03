@@ -171,6 +171,7 @@ body{background:#fff;}
 .ligne1,.ligne2 {display: inline-block;width: 2.5em;text-align: center;position:relative;}
 .ligne2 {margin-top: 0.5em;}
 .bt_valid{background: #b6ca1f;color: white;margin: -1em auto 0;display: table;font-size: 1.4em;border-radius: 0.2em;}
+.merci {text-align: center;margin: 2em 0 5em;font-weight: bold;color: #30231d;font-size: 1.2em;}
 
 /*--Nice checkbox*/
 .elmt_box {position: relative;}

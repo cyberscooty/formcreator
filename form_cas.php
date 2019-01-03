@@ -31,6 +31,12 @@
 $mustsave=0;
 
 
+//--recherche position max
+	$result = $db->query("SELECT MAX(position) AS posmax FROM questions WHERE form_id='$form_id' ORDER BY position ASC");
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$posmax=$row['posmax'];}
+
+
+
 //--Supprime valeur
 	$result = $db->query("SELECT data.id AS data_id FROM data,questions WHERE questions.form_id=$form_id AND questions.id=data.question_id");
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -53,8 +59,8 @@ $result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id")
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$qid=$row['id'];
 		$position=(int)$row['position'];
-		if($_POST['monter'.$qid]=='monter'){echo 'monter';$mustsave=2;$position=$position-3;}
-		if($_POST['descendre'.$qid]=='descendre'){echo 'descendre ';$mustsave=2;$position=$position+3;}
+		if($_POST['monter'.$qid]=='monter'){$mustsave=2;$position=$position-3;}
+		if($_POST['descendre'.$qid]=='descendre'){$mustsave=2;$position=$position+3;}
 		
 		if ($mustsave==2){$affected_rows = $db->exec("UPDATE questions SET position='$position' WHERE id=$qid");$mustsave=$mustsave-1;$recalcul_pos=1;}
 		
@@ -68,7 +74,7 @@ $result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id")
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$qid=$row['id'];
 			$newpos=$newpos+2;
-			$affected_rows = $db->exec("UPDATE questions SET position='$newpos' WHERE id=$qid");echo 'qid='.$qid.' newpos='.$newpos.' saved='.$affected_rows;
+			$affected_rows = $db->exec("UPDATE questions SET position='$newpos' WHERE id=$qid");
 			
 		}
 	}
@@ -154,11 +160,8 @@ if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_tit
 if(isset($_POST['add_question'])){
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
-	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Question sans titre', '$now',3)");
-	//$insertId = $db->lastInsertId();
-		
-	
-	
+	$position=$posmax+2;
+	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type,position) VALUES($form_id,'Question sans titre', '$now',3,$position)");
 	header('Location: formulaire.php?form='.$uniqueid.'#bottom'); exit();}
 	
 	
@@ -166,8 +169,10 @@ if(isset($_POST['add_question'])){
 //--Ajouter titre
 if(isset($_POST['add_titre'])){
 	$now = date("Y-m-d H:i:s");
+	$position=$posmax+2;
 	include 'connect.php';
-	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type) VALUES($form_id,'Titre', '$now',0)");
+	$result = $db->exec("INSERT INTO questions(form_id, titre,datecreated,type,position) VALUES($form_id,'Titre', '$now',0,$position)");
+	header('Location: formulaire.php?form='.$uniqueid.'#bottom'); exit();
 	}
 
 
