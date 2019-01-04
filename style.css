@@ -198,16 +198,15 @@ body{background:#fff;}
 
 /*--Résultats*/
 .nb_result {color: #a5a5a5;font-size: .9em;position: absolute;bottom: 1em;right: 1em;}
-.result_bar{width:30em;vertical-align: middle;height: 2em;}
+.result_bar{width:30em;vertical-align: middle;height: 2em;margin-bottom: 1em;}
 .nb_rep {display: inline-block;margin-left: 1em;}
 
 
+/* Camembert en CSS et SVG
 
+https://la-cascade.io/diagrammes-circulaires-flexibles-avec-css-et-svg/
 
-
-
-
-
+*/
 
 
 
