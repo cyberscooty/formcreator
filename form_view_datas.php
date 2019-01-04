@@ -48,7 +48,7 @@ if($is_required==1){$required=' required';} else {$required='';}
 	if ($question_type==5) //Liste déroulante	
 		{
 		$result2 = $db->query("SELECT * FROM data WHERE question_id='$qid' AND is_secondary=0");
-			echo '<select class="view_select values_default" name="select'.$qid.'" '.$required.'>';
+			echo '<select class="view_select values_default" name="champ'.$qid.'" '.$required.'>';
 			while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {
 				echo '<option value="'.$row2['id'].'">'.$row2['valeur'].'</option>';
 			}				
@@ -67,7 +67,7 @@ if($is_required==1){$required=' required';} else {$required='';}
 			echo '<div>';
 			for ($i = $min; $i <= $max; $i++) {echo '<div class="ligne1"><label for="radio'.$i.'">'.$i.'</label></div>';}
 			echo '</div>';
-			for ($i = $min; $i <= $max; $i++) {echo '<div class="ligne2"><input class="view_echelle" type="radio" name="radio'.$qid.'" id="radio'.$i.'" value="'.$i.'" '.$required.'><div class="nice_echelle"></div></div>';}
+			for ($i = $min; $i <= $max; $i++) {echo '<div class="ligne2"><input class="view_echelle" type="radio" name="champ'.$qid.'" id="radio'.$i.'" value="'.$i.'" '.$required.'><div class="nice_echelle"></div></div>';}
 			
 		}
 		
@@ -79,13 +79,13 @@ if($is_required==1){$required=' required';} else {$required='';}
 	
 	if ($question_type==9) //Date
 		{
-		echo '<input type="date" class="values_default" name="date'.$qid.'" value="" '.$required.'>';
+		echo '<input type="date" class="values_default" name="champ'.$qid.'" value="" '.$required.'>';
 			
 		}
 		
 	if ($question_type==10) //Heure
 		{
-		echo '<input type="time" class="values_default" name="time'.$qid.'" value="" '.$required.'>';	
+		echo '<input type="time" class="values_default" name="champ'.$qid.'" value="" '.$required.'>';	
 		}
 
 

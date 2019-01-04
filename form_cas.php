@@ -84,7 +84,7 @@ $result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id")
 
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view'])){
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view']) || isset($_POST['results'])){
 	$modif=0;
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
@@ -177,7 +177,16 @@ if(isset($_POST['add_titre'])){
 
 
 //--Retour page principale
-if(isset($_POST['back'])){header('Location: index.php'); exit();}	
+if(isset($_POST['back'])){header('Location: index.php'); exit();}
+
+//--view results
+if(isset($_POST['results'])){
+?>
+	<script type="text/javascript">window.open('results.php?form=<?php echo $uniqueid;?>');</script>
+	<?php
+
+
+}	
 	
 //--Aperçu formulaire
 if(isset($_POST['view'])){

@@ -31,6 +31,7 @@ echo '<div class="box_droite"><input type="submit" name="add_question" class="bt
 	<input type="submit" name="add_titre" class="bt_droite bt_titre" value="" title="Ajouter un titre">
 	<input type="submit" class="bt_droite bt_save" name="ok" value="" title="Valider les modifications">
 	<input type="submit" class="bt_droite bt_view" name="view" value="" title="Aperçu du formulaire">
+	<input type="submit" class="bt_droite bt_results" name="results" value="" title="Voir les résultats">
 	<input type="submit" class="bt_droite bt_back" name="back" value="" title="Retour page principale">
 	</div>';
 
@@ -38,17 +39,11 @@ echo '<div class="box_droite"><input type="submit" name="add_question" class="bt
 	
 	
 //--titre formulaire
-
 echo '<div class="question_box">';
 echo '<div class="mode_modif">Mode création</div>';
 echo '<input type="text" name="form_titre" class="form_titre" value="'.$form_titre.'" placeholder="Titre du formulaire" required>';
 echo '<textarea name="form_description" class="form_description" placeholder="Description du formulaire">'.stripcslashes($form_description).'</textarea>';
 echo '</div>';
-
-
-//######################################################
-//ajouter ici un bouton ON/OFF pour champs obligatoire position
-//######################################################
 
 
 //--questions

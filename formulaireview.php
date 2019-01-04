@@ -30,7 +30,7 @@ echo '<div class="form_description">'.nl2br($form_description).'</div>';
 echo '</div>';
 
 //--questions
-$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id' ORDER BY position");
+$result = $db->query("SELECT * FROM questions WHERE form_id='$form_id' ORDER BY position ASC");
 while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	
 	$qid=$row['id'];$question_type=$row['type'];$is_required=$row['is_required'];
