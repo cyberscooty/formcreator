@@ -3,8 +3,9 @@ session_start();
 //--interdire IE
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true || strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') == true){header( 'Location: ie.php' ) ;exit(); }
 
-//--verifie id de session
-if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik'){
+// test : http://192.168.0.200/formcreator/formulaireview.php?form=219f5c2ce55ac52d0907560932
+//--verifie id de session sauf si invité pour remplir questionnaire
+if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik' && strpos($_SERVER['REQUEST_URI'],'formulaireview.php')==FALSE && strpos($_SERVER['REQUEST_URI'],'formviewsave.php')==FALSE){
 	session_start();
 	session_unset();
 	session_destroy();

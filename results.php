@@ -18,6 +18,7 @@ $uniqueid=mysql_real_escape_string(trim($_GET['form']));
 
 	//--titre formulaire
 echo '<div class="question_box">';
+echo '<div class="mode_modif">Réponses</div>';
 echo '<div class="form_titre">'.$form_titre.'</div>';
 echo '<div class="form_description">'.nl2br($form_description).'</div>';
 echo '</div>';

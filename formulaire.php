@@ -20,7 +20,8 @@ echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
 echo '<input class="fake_submit" type="submit" name="ok" value="Enregistrer les modifications">';
 //--bouton retour en haut à gauche
 echo '<input type="submit" class="bt_hautgauche" name="back" value="" title="Retour page principale">';
-
+//--bouton envoyer en haut à droite
+echo '<input type="submit" class="bt_envoyer" name="envoyer" value="Envoyer" title="">';
 
 
 

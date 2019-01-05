@@ -4,15 +4,18 @@ echo '<div class="question_values">';
 
 	if ($question_type==1 || $question_type==2) //réponse courte
 	{
-	$result2 = $db->query("SELECT * FROM reponses WHERE question_id='$qid'");
+	$result2 = $db->query("SELECT * FROM reponses,users WHERE ((user_id=users.id AND question_id='$qid') OR (user_id='0' AND question_id='$qid'))  AND valeur!=''");
 	$row_count2 = $result2->rowCount();
 	if ($row_count2>1){$s='s';}else{$s='';}
 	echo '<div class="nb_result">Nombre de résultat'.$s.' : '.$row_count2.'</div>';
-	echo '<ul>';
+	
 		while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {
-		if ($row2['valeur']!=''){echo '<li>'.$row2['valeur'].'</li>';}
+		if ($row2['user_id']!='0'){$name=ucfirst($row2['prenom']).' '.mb_strtoupper($row2['nom']);} else {$name='Anonyme';}
+		if ($row2['valeur']!=''){echo '<div class="result_user">'.$name.' dit:</div>
+		<div class="result_text">'.nl2br($row2['valeur']).'</div>
+		';}
 		}
-	echo '<ul>';
+	
 	}
 
 	
@@ -22,22 +25,35 @@ echo '<div class="question_values">';
 	$result3 = $db->query("SELECT COUNT(*) AS nb_reponses FROM `reponses` WHERE question_id='$qid' GROUP BY valeur ORDER BY nb_reponses DESC LIMIT 1");
 	while($row3 = $result3->fetch(PDO::FETCH_ASSOC)) {$nbmax=$row3['nb_reponses'];}
 	
-
+		$i=1;$nbvotant=0;
 		while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {
 			$nbrep=$row2['nb_reponses'];
 			$titre_val=$row2['dvaleur'];
 		echo '<div class="rep_titre">'.$titre_val.'</div>';
-		echo '<meter class="result_bar" value="'.$nbrep.'" min="0" max="'.$nbmax.'"></meter>';
-		echo '<div class="nb_rep">'.$nbrep.'</div>';
+		//echo '<meter class="result_bar" value="'.$nbrep.'" min="0" max="'.$nbmax.'"></meter>';
+		
+		$pourcent=$nbrep*100/$nbmax;
+		echo '<style>@keyframes anim_jauge'.$i.' {0% {width:0;}100% {width:'.$pourcent.'%;}}</style>';
+		echo '<div class="fond_jauge"><div class="jauge" style="animation: anim_jauge'.$i.' 2s forwards;"></div></div>';
+		
+		if ($nbrep>1){$s='s';} else {$s='';}
+		echo '<div class="nb_rep">'.$nbrep.' personne'.$s.'</div>';
+		
+		
+		$i++;$nbvotant=$nbvotant+$nbrep;
 		}
+		if ($nbvotant>1){$s='s';}else{$s='';}
+		echo '<div class="nb_result">Nombre de votant'.$s.' : '.$nbvotant.'</div>';
 	}
 		
-	if ($question_type==6 || $question_type==9 || $question_type==10) //échelle linéaire
+	if ($question_type==6 || $question_type==9 || $question_type==10) //échelle linéaire ou date ou heure
 	{
 		$result2 = $db->query("SELECT COUNT(*) AS nb_reponses,valeur AS dvaleur FROM reponses WHERE reponses.question_id='$qid' GROUP BY reponses.valeur ORDER BY nb_reponses DESC");
 		$result3 = $db->query("SELECT COUNT(*) AS nb_reponses FROM `reponses` WHERE question_id='$qid' GROUP BY valeur ORDER BY nb_reponses DESC LIMIT 1");
 		while($row3 = $result3->fetch(PDO::FETCH_ASSOC)) {$nbmax=$row3['nb_reponses'];}
 		
+		
+		$t=1;$nbvotant=0;
 		while($row2 = $result2->fetch(PDO::FETCH_ASSOC)) {
 			$nbrep=$row2['nb_reponses'];
 			$titre_val=$row2['dvaleur'];
@@ -48,9 +64,17 @@ echo '<div class="question_values">';
 		
 			
 		echo '<div class="rep_titre">'.$titre_val.'</div>';
-		echo '<meter class="result_bar" value="'.$nbrep.'" min="0" max="'.$nbmax.'"></meter>';
-		echo '<div class="nb_rep">'.$nbrep.'</div>';
+				
+		$pourcent=$nbrep*100/$nbmax;
+		echo '<style>@keyframes anim_jauge'.$t.' {0% {width:0;}100% {width:'.$pourcent.'%;}}</style>';
+		echo '<div class="fond_jauge"><div class="jauge" style="animation: anim_jauge'.$t.' 2s forwards;"></div></div>';
+		
+		if ($nbrep>1){$s='s';} else {$s='';}
+		echo '<div class="nb_rep">'.$nbrep.' personne'.$s.'</div>';
+		$t++;$nbvotant=$nbvotant+$nbrep;
 		}
+		if ($nbvotant>1){$s='s';}else{$s='';}
+		echo '<div class="nb_result">Nombre de votant'.$s.' : '.$nbvotant.'</div>';
 	}
 	
 	

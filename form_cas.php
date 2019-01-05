@@ -18,6 +18,39 @@
 		include 'connect.php';
 		$result = $db->exec("INSERT INTO formulaires(uniqueid, titre,owner,datecreated,actif) VALUES('$uniqueid', '$titre','$userid','$now',1)");
 	}
+	
+	//création Exemple 1
+	if ($uniqueid=='new_expl1'){
+		$uniqueid=(date('z')*2).date('y').str_replace('.','',uniqid('f',TRUE));
+		$titre='Formulaire sans titre';
+		$now = date("Y-m-d H:i:s");
+		$userid=$_SESSION['userid'];
+		include 'connect.php';
+		$result = $db->exec("INSERT INTO formulaires(uniqueid, titre,owner,datecreated,actif) VALUES('$uniqueid', '$titre','$userid','$now',1)");
+		$lastId = $db->lastInsertId();
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Identification','0','0','2','$now')");
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Votre email','1','1','4','$now')");
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Vos impressions','0','0','6','$now')");
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Quelle note attribueriez vous à la présentation en général','6','0','8','$now')");
+		$qid1 = $db->lastInsertId();
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Qu\'avez vous préféré?','4','0','10','$now')");
+		$qid2 = $db->lastInsertId();
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Conseillerez vous ce produit à un ami','5','0','12','$now')");
+		$qid3 = $db->lastInsertId();
+		$result = $db->exec("INSERT INTO questions(form_id,titre,type,is_required,position,datecreated) VALUES('$lastId','Une remarque sur cette présentation?','2','0','14','$now')");
+		
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid1','1','1','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid1','10','1','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid2','Le film promotionnel','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid2','Le diaporama de présentation','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid2','De pouvoir essayer le produit','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid3','-- sélectionnez une réponse --','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid3','oui probalement','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid3','non surement pas','0','$now')");
+		$result = $db->exec("INSERT INTO data(question_id,valeur,is_secondary,datecreated) VALUES('$qid3','je ne suis pas encore sûr','0','$now')");
+		
+	}
+	
 
 	//check si uniqueid existe
 	include 'connect.php';
@@ -84,7 +117,7 @@ $result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id")
 
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view']) || isset($_POST['results'])){
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view']) || isset($_POST['results']) || isset($_POST['envoyer'])){
 	$modif=0;
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
@@ -195,6 +228,33 @@ if(isset($_POST['view'])){
 	<?php
 	}
 
+	
+//--envoi formulaire
+if(isset($_POST['envoyer'])){
+echo '<div class="blackbox"></div>';
+echo '<div class="send_box align_center">';
+echo '<div class="send_title_box"><div class="send_title align_center">Envoyer le formulaire</div></div>';
+echo '<input type="radio" id="type_lien" name="sendtype" class="select_type_send" value="lien" checked><label for="type_lien">Envoyer le lien</label>
+	<input type="radio" id="type_mail" class="select_type_send" name="sendtype" value="mail"><label for="type_mail">Envoyer par e-mail</label>
+		';
+		
+		$link=substr(strtolower(dirname($_SERVER['SERVER_PROTOCOL']) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']),0,-14);
+		$link=$link.'formulaireview.php?form='.$uniqueid;
+		
+
+echo '<div class="send_per_link"><div class="lienform">'.$link.'</div></div>';		
+echo '<div class="send_per_mail">-- Fonction bientôt disponible --</div>';
+
+
+echo '<form action="formulaire.php" class="one_formulaire" method="post">
+		<input type="hidden" name="uniqueid" value="'.$uniqueid.'">
+		<input type="submit" class="bouton" name="" value="Annuler">
+		</form>';
+
+echo '</div>';
+
+	
+}
 
 	
 	
