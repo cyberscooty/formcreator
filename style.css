@@ -49,6 +49,8 @@ body{background:#fff;}
 
 .login_secondaire:hover,.bouton:hover,label,.supprval,.bt_droite,.form_options1,.bt_hautgauche,.is_required{cursor: pointer;}
 .margin_bottom{margin-bottom:1em;}
+.margin_top{margin-top:1em;}
+.margin_right{margin-right:1em;}
 .margin_bottom_double{margin-bottom:2em;}
 .bt_seul {display: block;text-align: center;margin: 0 auto;}
 .bt_plus{margin-right:1em;}
@@ -83,7 +85,7 @@ body{background:#fff;}
     height: 8em;transition:all .2s ease;overflow:hidden;margin: 0 1em 1em 0;position: relative;}
 .form_box:hover{border: 2px solid #292929;border-radius: 3px;}
 .form_new {position: absolute;font-size: 5em;font-weight: bold;top: 50%;left: 50%;transform: translate(-50%,-50%);color: #292929;padding: 0;margin: 0;}
-.form_title_new {position: absolute;bottom: -4em;left: 50%;transform: translatex(-50%);background: #292929;width: 13em;line-height: 2;color: white;border-radius: 0 0 3px 3px;transition:all .1s ease;}
+.form_title_new {position: absolute;bottom: -4em;left: 50%;transform: translatex(-50%);background: #292929;width: 13em;line-height: 2;color: white;border-radius: 0 0 3px 3px;transition:all .1s ease;min-height: 4em;}
 .form_box:hover .form_title_new{bottom: 0;}
 .form_list {margin: 1em 0;}
 .form_title {position: absolute;top: 1em;left: 50%;transform: translateX(-50%);display: inline-block;width: 11em;color: #292929;}
@@ -226,6 +228,10 @@ body{background:#fff;}
 #type_lien:checked~.send_per_link{display:block;}
 .send_per_link,.send_per_mail{display:none;margin: 1em 0;}
 .lienform {font-size: 1em;margin: 2em 0;color: #353535;border: 1px solid grey;display: inline-block;padding: 1em 2em;background: white;border-radius: 3px;}
+
+.send_text {width: 100%;border-radius: 3px;line-height: 2em;border: 1px solid #dedede;padding: 0 1em;margin-bottom:1em;}
+.send_body {border: 1px solid #dedede;background: white;padding: 0 1em 1em;border-radius: 3px;text-align: left;}
+.send_mini_title {text-align: left;color: grey;font-size: .8em;}
 
 
 

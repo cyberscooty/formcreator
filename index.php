@@ -19,7 +19,10 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 echo '<div class="newform">';
 echo '<div class="listform_title">Créer un formulaire</div>';
 echo '<a href="formulaire.php?form=new" class="form_box"><div class="form_new">+</div><div class="form_title_new">Créer un nouveau formulaire vide</div></a>';
-echo '<a href="formulaire.php?form=new_expl1" class="form_box"><div class="form_new">+</div><div class="form_title_new">Exemple : Qu\'avez vous pensé de la présentation?</div></a>';
+
+
+
+echo '<a href="formulaire.php?form=new_expl1" class="form_box"><div class="form_title">Qu\'avez vous pensé de la présentation?</div><div class="form_title_new">Créer un formulaire d\'après un exemple</div></a>';
 echo '</div>';
 
 //--affiche formulaires de l'utilisateur

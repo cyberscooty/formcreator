@@ -243,12 +243,28 @@ echo '<input type="radio" id="type_lien" name="sendtype" class="select_type_send
 		
 
 echo '<div class="send_per_link"><div class="lienform">'.$link.'</div></div>';		
-echo '<div class="send_per_mail">-- Fonction bientôt disponible --</div>';
+echo '<div class="send_per_mail">';
+
+echo '<form action="formulaire.php" class="form_send" method="post">';
 
 
-echo '<form action="formulaire.php" class="one_formulaire" method="post">
+
+
+$subject='[FormCreator] '.$form_titre;
+$msg=ucfirst($_SESSION['prenom']).' '.mb_strtoupper($_SESSION['nom']).' vous invite à répondre à remplir un formulaire';
+
+echo '<div class="send_mini_title">Destinataire</div>';
+echo '<input type="text" class="send_text" name="to" value="" placeholder="email@domaine.com" required>';
+echo '<div class="send_mini_title">Sujet</div>';
+echo '<input type="text" class="send_text" name="subject" value="'.$subject.'">';
+echo '<div class="send_mini_title">Message</div>';
+echo '<div class="send_body">';
+echo '<input type="text" class="send_text margin_top" name="body" value="'.$msg.'">';
+echo '<div class="send_lien">Cliquer sur le lien pour accéder au formulaire :<br>'.$link.'</div>';
+echo '</div></div>';
+echo '
 		<input type="hidden" name="uniqueid" value="'.$uniqueid.'">
-		<input type="submit" class="bouton" name="" value="Annuler">
+		<input type="submit" class="bouton margin_right" name="send_link" value="Envoyer"><input type="submit" class="bouton" name="" value="Annuler">
 		</form>';
 
 echo '</div>';
@@ -258,9 +274,25 @@ echo '</div>';
 
 	
 	
+//--envoi du mail
+if(isset($_POST['send_link'])){
+	$to=mysql_real_escape_string(trim($_POST['to']));
+	$subject=utf8_decode(mysql_real_escape_string(trim($_POST['subject'])));
+	$body=mysql_real_escape_string(trim($_POST['body']));
+	$link=substr(strtolower(dirname($_SERVER['SERVER_PROTOCOL']) . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']),0,-14);
+	$link=$link.'formulaireview.php?form='.$uniqueid;
 	
+	if($body){$msg='<p>'.$body.'</p>';}
+	$msg=$msg.'<p>Cliquer sur le lien pour accéder au formulaire :</p><p><a href="'.$link.'">'.$link.'</a>';
+	$msg = wordwrap($msg,70);
+	$headers="From: FormCreator@noreply.local \n"; 
+	$headers.= "MIME-version: 1.0\n"; 
+	$headers.= "Content-type: text/html; charset= UTF-8\n"; 
+	mail($to,$subject,$msg,$headers);
+	$erreur=array('message_vert','Email envoyé, consultez votre boîte aux lettres');
+	echo '<div class="save_ok">Un mail d\'invitation a été envoyé</div>';
 	
-	
+}	
 	
 	
 	
