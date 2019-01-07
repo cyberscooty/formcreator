@@ -32,9 +32,24 @@ include 'functions.php';
 <img class="logo" src="img/logo_formcreator2.svg" /><h1><?php echo $titre_site;?></h1>
 
 <div class="infos_header">
+
+<input type="checkbox" id="header_info"><label for="header_info"><?php echo ucfirst($_SESSION['prenom']).' '.mb_strtoupper($_SESSION['nom']);?></label>
+<div class="info_entry_box">
+<a href="profil.php" class="info_entry">Mon profil</a>
+<a href="disconnect.php" class="info_entry">Se déconnecter</a>
+</div>
+
 <?php
-	echo '<a class="header_info" href="disconnect.php" title="Se déconnecter">'.ucfirst($_SESSION['prenom']).' '.mb_strtoupper($_SESSION['nom']).'</a>';
+	//echo '<a class="header_info" href="disconnect.php" title="Se déconnecter">'.ucfirst($_SESSION['prenom']).' '.mb_strtoupper($_SESSION['nom']).'</a>';
 ?>
+
+
+
+
+
+
+
+
 
 </div>
 
