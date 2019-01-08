@@ -11,11 +11,17 @@ if(isset($_POST['back'])){header('Location: index.php'); exit();}
 
 //message
 if ($_GET['m']==1){$message=array('message_vert','Votre profil a été mis à jour');}
+if ($_GET['m']==2){$message=array('message_rouge','Ancien mot de passe incorrect');}
+if ($_GET['m']==3){$message=array('message_rouge','Les mots de passes sont différents');}
+if ($_GET['m']==4){$message=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
+if ($_GET['m']==5){$message=array('message_vert','Le mot de passe a été mis à jour');}
+if ($_GET['m']==6){$message=array('message_rouge','Erreur inconnue, le mot de passe n\'a pas été mis à jour');}
+
 
 
 //--Valider
 if(isset($_POST['profil_submit'])){
-	$passhash=$_SESSION['passhash'];
+	$passhash=$_POST['passhash'];
 	$now = date("Y-m-d H:i:s");
 	$login=mysql_real_escape_string(trim($_POST['login']));
 	$prenom=mysql_real_escape_string(trim($_POST['prenom']));
@@ -24,33 +30,44 @@ if(isset($_POST['profil_submit'])){
 	$oldpass=mysql_real_escape_string(trim($_POST['oldpass']));
 	$newpass1=mysql_real_escape_string(trim($_POST['newpass1']));
 	$newpass2=mysql_real_escape_string(trim($_POST['newpass2']));
-	
 	$message='';
-	if(strpos($email,'@')==false){$message=array('message_rouge','L\'adresse email ne semble pas valide');}
-	if(strpos($email,'.')==false){$message=array('message_rouge','L\'adresse email ne semble pas valide');}
-	//if (strlen($newpass1)<8 AND $newpass1!=""){$message=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
-	//if($newpass1!=$newpass2 AND $newpass1!=""){$message=array('message_rouge','Les mots de passes sont différents');}
 	
-	if($message==''){	//update
+
+	
+	if(strpos($email,'@')==false OR strpos($email,'.')==false){$message=array('message_rouge','L\'adresse email ne semble pas valide');}
+	
+	if($message==''){	//update profil
 				$affected_rows = $db->exec("UPDATE users SET login='$login',prenom='$prenom',nom='$nom',email='$email' WHERE id=$userid");
 				$_SESSION['login'] = $login;
 				$_SESSION['prenom'] = $prenom;
 				$_SESSION['nom'] = $nom;
 				$_SESSION['email'] = $email;
-				//header('Location: profil.php?m=1'); exit();				
+				echo 'modif='.$affected_rows;
+				if ($affected_rows==1){$m=1;$updated = $db->exec("UPDATE users SET datemodif='$now' WHERE id=$userid");}
 		}
 	
-	if ($oldpass!='' AND $newpass1=!$newpass2){$message=array('message_rouge','Les mots de passes sont différents');}
-	if ($oldpass!='' AND strlen($newpass1)<8){$message=array('message_rouge','Le mot de passe est trop court (min 8 caractères)');}
-	if ($oldpass!='' AND $newpass1==$newpass2){}
-	
+		
+	if($oldpass!=''){ //update mdp
+		if(MD5($oldpass)!=$passhash){$m=2;} //verif ancien mdp
+		if($newpass1!=$newpass2 AND $message==''){$m=3;} //verif confirmation mdp
+		if((int)strlen($newpass1)<8 AND $message==''){$m=4;} //verif longueur mdp
+		if($newpass1==$newpass2 AND $message==''){ //update mdp
+			$newpass=MD5($newpass1);
+			$modifmdp = $db->exec("UPDATE users SET passhash='$newpass',datemodif='$now' WHERE id=$userid");
+			if ($modifmdp=1){$m=5;}else {$m=5;}
+			
+		}
+			
+	}
+
 	
 	
 }
 
+if ($m!=''){header('Location: profil.php?m='.$m); exit();}
 
+if (isset($message)) echo '<div class="erreurlogin margin_bottom '.$message[0].' align_center">'.$message[1].'</div>';
 
-if (isset($message)) echo '<div class="erreurlogin margin_bottom '.$message[0].'">'.$message[1].'</div>';
 
 include 'connect.php';
 $userid=$_SESSION['userid'];
