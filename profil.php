@@ -31,10 +31,9 @@ if(isset($_POST['profil_submit'])){
 	$newpass1=mysql_real_escape_string(trim($_POST['newpass1']));
 	$newpass2=mysql_real_escape_string(trim($_POST['newpass2']));
 	$message='';
-	
-
-	
+		
 	if(strpos($email,'@')==false OR strpos($email,'.')==false){$message=array('message_rouge','L\'adresse email ne semble pas valide');}
+	
 	
 	if($message==''){	//update profil
 				$affected_rows = $db->exec("UPDATE users SET login='$login',prenom='$prenom',nom='$nom',email='$email' WHERE id=$userid");
@@ -44,7 +43,7 @@ if(isset($_POST['profil_submit'])){
 				$_SESSION['email'] = $email;
 				echo 'modif='.$affected_rows;
 				if ($affected_rows==1){$m=1;$updated = $db->exec("UPDATE users SET datemodif='$now' WHERE id=$userid");}
-		}
+	}
 	
 		
 	if($oldpass!=''){ //update mdp
@@ -55,9 +54,7 @@ if(isset($_POST['profil_submit'])){
 			$newpass=MD5($newpass1);
 			$modifmdp = $db->exec("UPDATE users SET passhash='$newpass',datemodif='$now' WHERE id=$userid");
 			if ($modifmdp=1){$m=5;}else {$m=5;}
-			
 		}
-			
 	}
 
 	

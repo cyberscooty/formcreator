@@ -117,7 +117,11 @@ $result = $db->query("SELECT id,position FROM questions WHERE form_id=$form_id")
 
 	
 //--Enregistre modif
-if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view']) || isset($_POST['results']) || isset($_POST['envoyer'])){
+if(isset($_POST['ok']) || isset($_POST['add_question']) || isset($_POST['add_titre']) || $mustsave>0 || isset($_POST['back']) || isset($_POST['view']) || isset($_POST['results']) 
+	|| isset($_POST['envoyer']) || isset($_POST['paint'])){
+	
+	
+	
 	$modif=0;
 	$now = date("Y-m-d H:i:s");
 	include 'connect.php';
@@ -294,8 +298,18 @@ if(isset($_POST['send_link'])){
 	
 }	
 	
+//--personnaliser
+if (isset($_POST['paint'])){
 	
+	echo '<div class="blackbox"></div>';
+echo '<div class="send_box align_center">';
+echo '<div class="send_title_box"><div class="send_title align_center">Personnalisation du formulaire</div></div>';
+echo '<form action="formulaire.php" method="post">';	
+echo '<input type="submit" class="bouton" name="" value="Annuler">';	
+echo '</form>';	
+echo '</div>';	
 	
+}
 	
 	
 	

@@ -30,6 +30,7 @@ echo '<input type="submit" class="bt_envoyer" name="envoyer" value="Envoyer" tit
 //--boutons à droite (ajout question ou titre)
 echo '<div class="box_droite"><input type="submit" name="add_question" class="bt_droite bt_add_question" value="" title="Ajouter une question">
 	<input type="submit" name="add_titre" class="bt_droite bt_titre" value="" title="Ajouter un titre">
+	<input type="submit" class="bt_droite bt_paint" name="paint" value="" title="Personnaliser">
 	<input type="submit" class="bt_droite bt_save" name="ok" value="" title="Valider les modifications">
 	<input type="submit" class="bt_droite bt_view" name="view" value="" title="Aperçu du formulaire">
 	<input type="submit" class="bt_droite bt_results" name="results" value="" title="Voir les résultats">
