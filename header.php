@@ -3,7 +3,6 @@ session_start();
 //--interdire IE
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true || strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') == true){header( 'Location: ie.php' ) ;exit(); }
 
-// test : http://192.168.0.200/formcreator/formulaireview.php?form=219f5c2ce55ac52d0907560932
 //--verifie id de session sauf si invité pour remplir questionnaire
 if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik' && strpos($_SERVER['REQUEST_URI'],'formulaireview.php')==FALSE && strpos($_SERVER['REQUEST_URI'],'formviewsave.php')==FALSE){
 	session_start();
@@ -14,6 +13,27 @@ if ($_SESSION['sessionid']!='kjFK_69kA5+k47gv-DG&ik' && strpos($_SERVER['REQUEST
 
 $titre_site="FormCreator";
 include 'functions.php';
+
+
+/*
+#c2d81d; vert clair (defaut)
+#75c7f9; bleu clair
+#f3f900; jaune
+#ff6060; sorte de rouge
+#b493ff; violet
+#ff93f6; rose
+#ff93a1; old rose
+#acacac; gris foncé
+#f1f1f1; gris clair
+#f9ad75; orange*/
+$colors=array('c2d81d','75c7f9','f3f900','ff6060','b493ff','ff93f6','ff93a1','acacac','f1f1f1','f9ad75');
+
+
+
+
+
+
+
 ?>
 
 <html>
@@ -26,6 +46,15 @@ include 'functions.php';
 <link rel="stylesheet" type="text/css" href="mobile.css">
 <link rel="icon" href="favicon.ico">
 <link rel="icon" type="image/png" href="favicon.png"> 
+
+
+
+
+
+<STYLE>
+:root {--main-color: #c2d81d; /*vert clair (defaut)*/}
+</STYLE>
+
 </head>
 <body>
 <div id="titre">

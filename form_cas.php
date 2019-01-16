@@ -58,10 +58,13 @@
 	$row_count = $result->rowCount();
 	if ($row_count==0){header('Location: index.php'); exit();}
 	//--recup valeurs table
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$form_id=$row['id'];$form_titre=$row['titre'];$form_description=$row['description'];$couleur=$row['couleur'];$background=$row['background'];
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$form_id=$row['id'];$form_titre=$row['titre'];$form_description=$row['description'];$couleur=(int)$row['couleur'];$background=$row['background'];
 												$reponses_possibles=$row['reponses_possibles'];$datecreated=$row['datecreated'];$datemodif=$row['datemodif'];}
 
 $mustsave=0;
+
+//couleur formulaire
+echo '<style>:root {--main-color:#'.$colors[$couleur].'}</style>';
 
 
 //--recherche position max
@@ -302,17 +305,83 @@ if(isset($_POST['send_link'])){
 if (isset($_POST['paint'])){
 	
 	echo '<div class="blackbox"></div>';
-echo '<div class="send_box align_center">';
+echo '<div class="customize_box">';
 echo '<div class="send_title_box"><div class="send_title align_center">Personnalisation du formulaire</div></div>';
-echo '<form action="formulaire.php" method="post">';	
-echo '<input type="submit" class="bouton" name="" value="Annuler">';	
-echo '</form>';	
+echo '<form action="formulaire.php" method="post">';
+
+
+
+echo '<div class="margin_bottom_double"><div class="form_titre subtitle">Date de réponse maximum</div>';//date réponses max - par défaut datemax = today + 30 jours
+echo '<div class="send_mini_title margin_bottom">Si la case n\'est pas cochée, les utilisateurs peuvent répondre indéfiniment</div>';
+echo '<div class="elmt_box margin_bottom"><input class="customize_margin" type="checkbox" name="checkbox2" id="checkbox2" value="1">
+				<div class="nice_checkbox"></div>
+				<label for="checkbox2">Activer date de réponse maximum</label></div>';
+echo '<div class="margin_bottom">Les utilisateurs peuvent répondre jusqu\'au :';
+
+
+if ($reponses_possibles=='0000-00-00'){$datemax=date('Y-m-d', strtotime("+30 days"));}else{$datemax=$reponses_possibles;}
+echo '<input type="date" name="datemax" class="values_default" value="'.$datemax.'">';		
+echo '</div></div>';
+
+
+
+
+
+
+
+
+echo '<div class="form_titre subtitle">Couleur principale</div><div>';//couleur
+if ($couleur==0){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_0" class="choose_color"'.$slc.' value="0"><label for="cc_0" class="choose_color_label">Vert (par défaut)</label>';
+if ($couleur==1){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_1" class="choose_color"'.$slc.' value="1"><label for="cc_1" class="choose_color_label">Bleu</label>';
+if ($couleur==2){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_2" class="choose_color"'.$slc.' value="2"><label for="cc_2" class="choose_color_label">Jaune</label>';
+if ($couleur==3){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_3" class="choose_color"'.$slc.' value="3"><label for="cc_3" class="choose_color_label">Rouge</label>';
+if ($couleur==4){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_4" class="choose_color"'.$slc.' value="4"><label for="cc_4" class="choose_color_label">Violet</label>';
+if ($couleur==5){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_5" class="choose_color"'.$slc.' value="5"><label for="cc_5" class="choose_color_label">Rose</label>';
+if ($couleur==6){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_6" class="choose_color"'.$slc.' value="6"><label for="cc_6" class="choose_color_label"">Vieux Rose</label>';
+if ($couleur==7){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_7" class="choose_color"'.$slc.' value="7"><label for="cc_7" class="choose_color_label">Gris foncé</label>';
+if ($couleur==8){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_8" class="choose_color"'.$slc.' value="8"><label for="cc_8" class="choose_color_label">Gris clair</label>';
+if ($couleur==9){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_9" class="choose_color"'.$slc.' value="9"><label for="cc_9" class="choose_color_label">Orange</label>';
+echo '</div>';
+echo '<div class="form_titre subtitle">Espacement</div>';//supprimer espacement
+
+echo '<div class="elmt_box margin_bottom_double"><input class="customize_margin" type="checkbox" name="checkbox1" id="checkbox1" value="1">
+				<div class="nice_checkbox"></div>
+				<label for="checkbox1">Supprimer les espaces entre les questions</label></div>';
+
+				
+
+
+echo '<div class="centrer align_center margin_bottom">
+	<input type="submit" class="bouton margin_right" name="customize" value="Valider"><input type="submit" class="bouton" name="" value="Annuler"></div>';	
+echo '	<input type="hidden" name="uniqueid" value="'.$uniqueid.'">
+		</form>';	
 echo '</div>';	
 	
 }
 	
 	
+if (isset($_POST['customize'])){
+	$couleur=$_POST['customize_color'];
+	$suppr_espace=$_POST['checkbox1'];
+	$reponses_possibles=$_POST['datemax'];
+	$datemax=$_POST['checkbox2'];
+	$now = date("Y-m-d H:i:s");
 	
+	if (!$datemax){$reponses_possibles='0000-00-00';}
+	$affected_rows = $db->exec("UPDATE formulaires SET couleur='$couleur',suppr_espace='$suppr_espace',reponses_possibles='$reponses_possibles',datemodif='$now' WHERE id=$form_id");
+	header('Location: formulaire.php?form='.$uniqueid); exit();
+	
+}	
 	
 	
 	

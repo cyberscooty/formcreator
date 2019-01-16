@@ -36,11 +36,13 @@ if ($row_count==0){echo 'Vous n\'avez pas encore créé de formulaire';}
 while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	
 		$description=$row['description'];
+		$couleur=(int)$row['couleur'];
 		$maxlength=90;
 		if (strlen($description)>$maxlength){$description=substr($description,0,$maxlength).'...';}
 		
+		echo '<style>#form_box'.$row['id'].'{background:#'.$colors[$couleur].'}</style>';
 		
-		echo '<a href="formulaire.php?form='.$row['uniqueid'].'" class="form_box"><div class="form_title">'.$row['titre'].'</div><img src="img/icon_date.svg" class="form_icon"/><div class="form_date">'.datecourtfr($row['datecreated']).'</div>';
+		echo '<a href="formulaire.php?form='.$row['uniqueid'].'" class="form_box" id="form_box'.$row['id'].'"><div class="form_title">'.$row['titre'].'</div><img src="img/icon_date.svg" class="form_icon"/><div class="form_date">'.datecourtfr($row['datecreated']).'</div>';
 		echo '<div class="form_descr" title="'.$row['description'].'">'.stripcslashes($description).'</div>';
 		echo '<form action="index.php" class="delete_form" method="post">';
 		echo '<input type="submit" value="suppr_form" name="suppr_form'.$row['id'].'" title="Supprimer ce formulaire" class="question_options form_options1">';
