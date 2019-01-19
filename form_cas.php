@@ -330,27 +330,31 @@ echo '</div></div>';
 
 
 
-echo '<div class="form_titre subtitle">Couleur principale</div><div>';//couleur
-if ($couleur==0){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_0" class="choose_color"'.$slc.' value="0"><label for="cc_0" class="choose_color_label">Vert (par défaut)</label>';
-if ($couleur==1){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_1" class="choose_color"'.$slc.' value="1"><label for="cc_1" class="choose_color_label">Bleu</label>';
-if ($couleur==2){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_2" class="choose_color"'.$slc.' value="2"><label for="cc_2" class="choose_color_label">Jaune</label>';
-if ($couleur==3){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_3" class="choose_color"'.$slc.' value="3"><label for="cc_3" class="choose_color_label">Rouge</label>';
+echo '<div class="form_titre subtitle">Couleur principale</div><div class="align_center">';//couleur
+
 if ($couleur==4){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_4" class="choose_color"'.$slc.' value="4"><label for="cc_4" class="choose_color_label">Violet</label>';
-if ($couleur==5){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_5" class="choose_color"'.$slc.' value="5"><label for="cc_5" class="choose_color_label">Rose</label>';
-if ($couleur==6){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_6" class="choose_color"'.$slc.' value="6"><label for="cc_6" class="choose_color_label"">Vieux Rose</label>';
-if ($couleur==7){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_7" class="choose_color"'.$slc.' value="7"><label for="cc_7" class="choose_color_label">Gris foncé</label>';
-if ($couleur==8){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_8" class="choose_color"'.$slc.' value="8"><label for="cc_8" class="choose_color_label">Gris clair</label>';
+echo '<input type="radio" name="customize_color" id="cc_4" class="choose_color"'.$slc.' value="4"><label for="cc_4" class="choose_color_label"></label>';//Rouge
 if ($couleur==9){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_9" class="choose_color"'.$slc.' value="9"><label for="cc_9" class="choose_color_label">Orange</label>';
+echo '<input type="radio" name="customize_color" id="cc_9" class="choose_color"'.$slc.' value="9"><label for="cc_9" class="choose_color_label"></label>';//Orange
+if ($couleur==3){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_3" class="choose_color"'.$slc.' value="3"><label for="cc_3" class="choose_color_label"></label>';//Jaune
+if ($couleur==0){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_0" class="choose_color"'.$slc.' value="0"><label for="cc_0" class="choose_color_label"></label>';//Vert 1
+if ($couleur==6){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_6" class="choose_color"'.$slc.' value="6"><label for="cc_6" class="choose_color_label""></label>';//Vert 2
+if ($couleur==1){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_1" class="choose_color"'.$slc.' value="1"><label for="cc_1" class="choose_color_label"></label>';//Bleu 1
+if ($couleur==2){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_2" class="choose_color"'.$slc.' value="2"><label for="cc_2" class="choose_color_label"></label>';//Bleu 2
+if ($couleur==5){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_5" class="choose_color"'.$slc.' value="5"><label for="cc_5" class="choose_color_label"></label>';//Violet
+if ($couleur==7){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_7" class="choose_color"'.$slc.' value="7"><label for="cc_7" class="choose_color_label"></label>';//Gris 1
+if ($couleur==8){$slc=' checked';}else{$slc='';}
+echo '<input type="radio" name="customize_color" id="cc_8" class="choose_color"'.$slc.' value="8"><label for="cc_8" class="choose_color_label"></label>';//Gris 2
+
+
+
 echo '</div>';
 echo '<div class="form_titre subtitle">Espacement</div>';//supprimer espacement
 

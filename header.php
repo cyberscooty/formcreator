@@ -26,8 +26,11 @@ include 'functions.php';
 #acacac; gris foncé
 #f1f1f1; gris clair
 #f9ad75; orange*/
-$colors=array('c2d81d','75c7f9','f3f900','ff6060','b493ff','ff93f6','ff93a1','acacac','f1f1f1','f9ad75');
+//old colors
+//$colors=array('c2d81d','75c7f9','f3f900','ff6060','b493ff','ff93f6','ff93a1','acacac','f1f1f1','f9ad75');
 
+$colors=array('c2d81d','75c7f9','0a7dc3','ffd400','ff0000','ad42ff','03af00','acacac','f1f1f1','ff8c2a');
+//             vert  ,bleu clair, bleu , jaune , rouge    ,violet ,vert ,   ,  gris , gris clair , orange
 
 
 
