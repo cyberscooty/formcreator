@@ -9,7 +9,11 @@ if(isset($_POST['back'])){
 
 
 
-
+	//couleur formulaire et wallpaper
+	$wallaper=base64_decode($_GET['w']);
+	$couleur=$_GET['c'];
+	if ($wallaper==''){$wallaper='nature1.jpg';}
+	echo '<style>:root {--main-color:#'.$colors[$couleur].'}#wallpaper {background: url(wallpapers/'.$wallaper.');background-size: cover;}</style>';
 
 
 $form_id=$_POST['form_id'];
@@ -19,6 +23,15 @@ if($user_id==''){$user_id=0;}
 
 
 if ($form_id!=''){ //prevent resubmitting
+
+	//recup personalisation formulaire
+	include 'connect.php';
+	$result = $db->query("SELECT * FROM formulaires WHERE id='$form_id'");
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$couleur=$row['couleur'];$wallaper=$row['background'];}
+
+
+
+
 
 include 'connect.php';
 $result = $db->query("SELECT * FROM questions WHERE form_id=$form_id");
@@ -44,7 +57,7 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 }
 
 //prevent resubmitting - redirect to the same page
-header('Location: formviewsave.php'); exit(); 
+header('Location: formviewsave.php?c='.$couleur.'&w='.base64_encode($wallaper)); exit(); 
 
 }
 

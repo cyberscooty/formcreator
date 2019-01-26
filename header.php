@@ -87,5 +87,5 @@ $colors=array('c2d81d','75c7f9','0a7dc3','ffd400','ff0000','ad42ff','03af00','ac
 
 
 </div>
-
+<div id="wallpaper"></div>
 <div id="main">

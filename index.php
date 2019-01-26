@@ -1,6 +1,8 @@
 <?php include 'header.php';
 
 
+echo '<style>#wallpaper {background: url(img/index_wallpaper.jpg);background-size: cover;}#main{background: none;}</style>';
+
 //--désactive formulaire
 include 'connect.php';
 $now = date("Y-m-d H:i:s");
@@ -37,12 +39,15 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	
 		$description=$row['description'];
 		$couleur=(int)$row['couleur'];
+		$wallpaper=$row['background'];
 		$maxlength=90;
+		if ($wallpaper==''){$wallpaper='nature1.jpg';}
 		if (strlen($description)>$maxlength){$description=substr($description,0,$maxlength).'...';}
 		
-		echo '<style>#form_box'.$row['id'].'{background:#'.$colors[$couleur].'}</style>';
+		echo '<style>#form_box'.$row['id'].'{background: url(wallpapers/'.$wallpaper.');background-size: cover;}</style>';
 		
 		echo '<a href="formulaire.php?form='.$row['uniqueid'].'" class="form_box" id="form_box'.$row['id'].'"><div class="form_title">'.$row['titre'].'</div><img src="img/icon_date.svg" class="form_icon"/><div class="form_date">'.datecourtfr($row['datecreated']).'</div>';
+		echo '<div class="wallpaper_plus_clair"></div>';
 		echo '<div class="form_descr" title="'.$row['description'].'">'.stripcslashes($description).'</div>';
 		echo '<form action="index.php" class="delete_form" method="post">';
 		echo '<input type="submit" value="suppr_form" name="suppr_form'.$row['id'].'" title="Supprimer ce formulaire" class="question_options form_options1">';

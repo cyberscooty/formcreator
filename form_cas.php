@@ -59,12 +59,13 @@
 	if ($row_count==0){header('Location: index.php'); exit();}
 	//--recup valeurs table
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$form_id=$row['id'];$form_titre=$row['titre'];$form_description=$row['description'];$couleur=(int)$row['couleur'];$background=$row['background'];
-												$reponses_possibles=$row['reponses_possibles'];$datecreated=$row['datecreated'];$datemodif=$row['datemodif'];}
+												$reponses_possibles=$row['reponses_possibles'];$datecreated=$row['datecreated'];$datemodif=$row['datemodif'];$wallpaper=$row['background'];}
 
 $mustsave=0;
 
-//couleur formulaire
-echo '<style>:root {--main-color:#'.$colors[$couleur].'}</style>';
+//couleur formulaire et wallpaper
+if ($wallpaper==''){$wallpaper='nature1.jpg';}
+echo '<style>:root {--main-color:#'.$colors[$couleur].'}#wallpaper {background: url(wallpapers/'.$wallpaper.');background-size: cover;}</style>';
 
 
 //--recherche position max
@@ -308,73 +309,76 @@ if (isset($_POST['paint'])){
 echo '<div class="customize_box">';
 echo '<div class="send_title_box"><div class="send_title align_center">Personnalisation du formulaire</div></div>';
 echo '<form action="formulaire.php" method="post">';
+echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
+
+	//date réponses max - par défaut datemax = today + 30 jours
+	echo '<div class="margin_bottom_double"><div class="form_titre subtitle">Date de réponse maximum</div>';
+	echo '<div class="send_mini_title margin_bottom">Si la case n\'est pas cochée, les utilisateurs peuvent répondre indéfiniment</div>';
+	echo '<div class="elmt_box margin_bottom"><input class="customize_margin" type="checkbox" name="checkbox2" id="checkbox2" value="1">
+					<div class="nice_checkbox"></div>
+					<label for="checkbox2">Activer date de réponse maximum</label></div>';
+	echo '<div class="margin_bottom">Les utilisateurs peuvent répondre jusqu\'au :';
 
 
-
-echo '<div class="margin_bottom_double"><div class="form_titre subtitle">Date de réponse maximum</div>';//date réponses max - par défaut datemax = today + 30 jours
-echo '<div class="send_mini_title margin_bottom">Si la case n\'est pas cochée, les utilisateurs peuvent répondre indéfiniment</div>';
-echo '<div class="elmt_box margin_bottom"><input class="customize_margin" type="checkbox" name="checkbox2" id="checkbox2" value="1">
-				<div class="nice_checkbox"></div>
-				<label for="checkbox2">Activer date de réponse maximum</label></div>';
-echo '<div class="margin_bottom">Les utilisateurs peuvent répondre jusqu\'au :';
+	if ($reponses_possibles=='0000-00-00'){$datemax=date('Y-m-d', strtotime("+30 days"));}else{$datemax=$reponses_possibles;}
+	echo '<input type="date" name="datemax" class="values_default" value="'.$datemax.'">';		
+	echo '</div></div>';
 
 
-if ($reponses_possibles=='0000-00-00'){$datemax=date('Y-m-d', strtotime("+30 days"));}else{$datemax=$reponses_possibles;}
-echo '<input type="date" name="datemax" class="values_default" value="'.$datemax.'">';		
-echo '</div></div>';
+	//couleur
+	echo '<div class="form_titre subtitle">Couleur principale</div><div class="align_center">';
+
+	if ($couleur==4){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_4" class="choose_color"'.$slc.' value="4"><label for="cc_4" class="choose_color_label"></label>';//Rouge
+	if ($couleur==9){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_9" class="choose_color"'.$slc.' value="9"><label for="cc_9" class="choose_color_label"></label>';//Orange
+	if ($couleur==3){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_3" class="choose_color"'.$slc.' value="3"><label for="cc_3" class="choose_color_label"></label>';//Jaune
+	if ($couleur==0){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_0" class="choose_color"'.$slc.' value="0"><label for="cc_0" class="choose_color_label"></label>';//Vert 1
+	if ($couleur==6){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_6" class="choose_color"'.$slc.' value="6"><label for="cc_6" class="choose_color_label""></label>';//Vert 2
+	if ($couleur==1){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_1" class="choose_color"'.$slc.' value="1"><label for="cc_1" class="choose_color_label"></label>';//Bleu 1
+	if ($couleur==2){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_2" class="choose_color"'.$slc.' value="2"><label for="cc_2" class="choose_color_label"></label>';//Bleu 2
+	if ($couleur==5){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_5" class="choose_color"'.$slc.' value="5"><label for="cc_5" class="choose_color_label"></label>';//Violet
+	if ($couleur==7){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_7" class="choose_color"'.$slc.' value="7"><label for="cc_7" class="choose_color_label"></label>';//Gris 1
+	if ($couleur==8){$slc=' checked';}else{$slc='';}
+	echo '<input type="radio" name="customize_color" id="cc_8" class="choose_color"'.$slc.' value="8"><label for="cc_8" class="choose_color_label"></label>';//Gris 2
+	echo '</div>';
 
 
+	//wallpaper
+	echo '<div class="form_titre subtitle">Fond d\'écran</div><div class="align_center">';
+	echo '<div class="actual_wallpaper margin_bottom"><img src="wallpapers/'.$wallpaper.'" /></div>';
+	echo '<input type="hidden" name="actual_wallpaper" value="'.$wallpaper.'">';
+	echo '<input type="submit" class="bouton" name="choose_wallpaper" value="Modifier l\'image de fond">';
+	echo '</div>';
 
-
-
-
-
-
-echo '<div class="form_titre subtitle">Couleur principale</div><div class="align_center">';//couleur
-
-if ($couleur==4){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_4" class="choose_color"'.$slc.' value="4"><label for="cc_4" class="choose_color_label"></label>';//Rouge
-if ($couleur==9){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_9" class="choose_color"'.$slc.' value="9"><label for="cc_9" class="choose_color_label"></label>';//Orange
-if ($couleur==3){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_3" class="choose_color"'.$slc.' value="3"><label for="cc_3" class="choose_color_label"></label>';//Jaune
-if ($couleur==0){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_0" class="choose_color"'.$slc.' value="0"><label for="cc_0" class="choose_color_label"></label>';//Vert 1
-if ($couleur==6){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_6" class="choose_color"'.$slc.' value="6"><label for="cc_6" class="choose_color_label""></label>';//Vert 2
-if ($couleur==1){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_1" class="choose_color"'.$slc.' value="1"><label for="cc_1" class="choose_color_label"></label>';//Bleu 1
-if ($couleur==2){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_2" class="choose_color"'.$slc.' value="2"><label for="cc_2" class="choose_color_label"></label>';//Bleu 2
-if ($couleur==5){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_5" class="choose_color"'.$slc.' value="5"><label for="cc_5" class="choose_color_label"></label>';//Violet
-if ($couleur==7){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_7" class="choose_color"'.$slc.' value="7"><label for="cc_7" class="choose_color_label"></label>';//Gris 1
-if ($couleur==8){$slc=' checked';}else{$slc='';}
-echo '<input type="radio" name="customize_color" id="cc_8" class="choose_color"'.$slc.' value="8"><label for="cc_8" class="choose_color_label"></label>';//Gris 2
-
-
-
-echo '</div>';
-echo '<div class="form_titre subtitle">Espacement</div>';//supprimer espacement
-
-echo '<div class="elmt_box margin_bottom_double"><input class="customize_margin" type="checkbox" name="checkbox1" id="checkbox1" value="1">
-				<div class="nice_checkbox"></div>
-				<label for="checkbox1">Supprimer les espaces entre les questions</label></div>';
+	
+	//supprimer espacement
+	echo '<div class="form_titre subtitle">Espacement</div>';
+	echo '<div class="elmt_box margin_bottom_double"><input class="customize_margin" type="checkbox" name="checkbox1" id="checkbox1" value="1">
+					<div class="nice_checkbox"></div>
+					<label for="checkbox1">Supprimer les espaces entre les questions</label></div>';
 
 				
 
+	//valider - annuler
+	echo '<div class="centrer align_center margin_bottom">
+		<input type="submit" class="bouton margin_right" name="customize" value="Valider"><input type="submit" class="bouton" name="" value="Annuler"></div>';	
 
-echo '<div class="centrer align_center margin_bottom">
-	<input type="submit" class="bouton margin_right" name="customize" value="Valider"><input type="submit" class="bouton" name="" value="Annuler"></div>';	
-echo '	<input type="hidden" name="uniqueid" value="'.$uniqueid.'">
-		</form>';	
+		
+echo '</form>';	
 echo '</div>';	
 	
 }
 	
-	
-if (isset($_POST['customize'])){
+//--enregistre personnalisation
+if (isset($_POST['customize']) || isset($_POST['choose_wallpaper'])){
 	$couleur=$_POST['customize_color'];
 	$suppr_espace=$_POST['checkbox1'];
 	$reponses_possibles=$_POST['datemax'];
@@ -383,15 +387,53 @@ if (isset($_POST['customize'])){
 	
 	if (!$datemax){$reponses_possibles='0000-00-00';}
 	$affected_rows = $db->exec("UPDATE formulaires SET couleur='$couleur',suppr_espace='$suppr_espace',reponses_possibles='$reponses_possibles',datemodif='$now' WHERE id=$form_id");
-	header('Location: formulaire.php?form='.$uniqueid); exit();
+
 	
 }	
 	
 	
+//--choix nouveau wallpaper
+if (isset($_POST['choose_wallpaper'])){
+	$actual_wallpaper=$_POST['actual_wallpaper'];
+
+	echo '<div class="blackbox"></div>';
+	echo '<div class="customize_box">';
+	echo '<div class="send_title_box"><div class="send_title align_center">Choisir votre image de fond</div></div>';
+	echo '<form action="formulaire.php" method="post">';
+	echo '<input type="hidden" name="uniqueid" value="'.$uniqueid.'">';
+	echo '<div class="margin_bottom_double">';
+		$path    = './wallpapers';
+		$files = scandir($path);
+		$files = array_diff(scandir($path), array('.', '..','@eaDir','default','Thumbs.db'));
+		//affiche wallapers
+		echo '<div class="miniwallpaper_box align_center">';
+		if (!$tableau_img){$tableau_img='default/default.jpg';}
+		foreach ($files as $key=>$value) {
+			if ($actual_wallpaper==$value){$checked=' checked';} else {$checked='';}
+			echo  '<input type="radio" name="tab_img" id="img'.$key.'" value="'.$value.'" class="miniwallpapers_radio" '.$checked.'>
+			<label for="img'.$key.'" class="miniwallpapers_label" style="background-image:url(wallpapers/'.$value.');background-size:cover;"></label>';}
+		echo '</div>';
+	echo '</div>';	
 	
-	
-	
+	//valider - annuler
+	echo '<div class="centrer align_center margin_bottom">
+		<input type="submit" class="bouton margin_right" name="change_wallpaper" value="Valider"><input type="submit" class="bouton" name="" value="Annuler"></div>';	
+	echo '</form>';	
+	echo '</div>';		
+}
+
+//--enregistre nouveau wallpaper
+if (isset($_POST['change_wallpaper'])){
+	$now = date("Y-m-d H:i:s");
+	$wallpaper=$_POST['tab_img'];
+	$affected_rows = $db->exec("UPDATE formulaires SET background='$wallpaper',datemodif='$now' WHERE id=$form_id");
+	header('Location: formulaire.php?form='.$uniqueid); exit();
+}
 
 
+
+if (isset($_POST['customize'])){
+	header('Location: formulaire.php?form='.$uniqueid); exit();
+}
 
 ?>

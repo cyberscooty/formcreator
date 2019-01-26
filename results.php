@@ -9,10 +9,12 @@ $uniqueid=mysql_real_escape_string(trim($_GET['form']));
 	if ($row_count==0){header('Location: index.php'); exit();}
 	//--recup valeurs table
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {$form_id=$row['id'];$form_titre=$row['titre'];$form_description=$row['description'];$couleur=$row['couleur'];$background=$row['background'];
-												$reponses_possibles=$row['reponses_possibles'];$datecreated=$row['datecreated'];$datemodif=$row['datemodif'];}
+												$reponses_possibles=$row['reponses_possibles'];$datecreated=$row['datecreated'];$datemodif=$row['datemodif'];$wallaper=$row['background'];}
 												
 												
-
+//couleur formulaire et wallpaper
+if ($wallaper==''){$wallaper='nature1.jpg';}
+echo '<style>:root {--main-color:#'.$colors[$couleur].'}#wallpaper {background: url(wallpapers/'.$wallaper.');background-size: cover;}</style>';
 
 
 
