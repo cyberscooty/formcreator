@@ -47,6 +47,8 @@ while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		echo '<style>#form_box'.$row['id'].'{background: url(wallpapers/'.$wallpaper.');background-size: cover;}</style>';
 		
 		echo '<a href="formulaire.php?form='.$row['uniqueid'].'" class="form_box" id="form_box'.$row['id'].'"><div class="form_title">'.$row['titre'].'</div><img src="img/icon_date.svg" class="form_icon"/><div class="form_date">'.datecourtfr($row['datecreated']).'</div>';
+		echo '<div class="form_coul" class="form_coul" style="background:#'.$colors[$couleur].'"></div>';
+	
 		echo '<div class="wallpaper_plus_clair"></div>';
 		echo '<div class="form_descr" title="'.$row['description'].'">'.stripcslashes($description).'</div>';
 		echo '<form action="index.php" class="delete_form" method="post">';
